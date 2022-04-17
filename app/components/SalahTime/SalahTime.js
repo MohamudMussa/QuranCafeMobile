@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { useDispatch } from 'react-redux';
+import { getSalahTimings } from '../../store/actions/salahAction/salahActions';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 
-const SalahTime = () => (
-  <View style={styles.container}>
-    <Text style={styles.textStyle}>23 mins - left until Duhur</Text>
-  </View>
-);
+const SalahTime = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSalahTimings());
+  }, [dispatch]);
+  return (
+    <View style={styles.container}>
+      <Text style={styles.textStyle}>23 mins - left until Duhur</Text>
+    </View>
+  );
+};
 
 export default SalahTime;
 
 const styles = StyleSheet.create({
   container: {
     width: '90%',
-    height: 50,
+    height: '6.55%',
     borderRadius: 40,
-    backgroundColor: colors.ThemeRed,
+    backgroundColor: colors.Ecstasy,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

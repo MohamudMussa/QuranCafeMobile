@@ -1,9 +1,13 @@
-import {GET_ALL_RECITATIONS} from '../actions/Types';
+import {
+  GET_ALL_RECITATIONS,
+  GET_IMAGE_LIST,
+} from '../actions/recitationsAction/Types';
 
 const initialState = {
   recitations: [],
   loading: false,
   error: null,
+  imageList: [],
 };
 
 export const recitationReducer = (state = initialState, action) => {
@@ -23,6 +27,12 @@ export const recitationReducer = (state = initialState, action) => {
         ...state,
         loading: false,
       };
+    case GET_IMAGE_LIST.SUCCESS: {
+      return {
+        ...state,
+        imageList: action.payload,
+      };
+    }
     default:
       return state;
   }

@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2.84,
     elevation: 5,
+    height: '49.5%',
   },
   recitationCover: {
     width: '88%',
-    height: 319,
     borderRadius: 19,
   },
 });
