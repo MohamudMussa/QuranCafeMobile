@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import Slider from '@react-native-community/slider';
 import TrackPlayer, {
   Capability,
@@ -14,7 +14,10 @@ import RecitationCover from '../RecitationCover/RecitationCover';
 import ThumbImage from '../../assets/images/Dot.png';
 import RecitationPlayerAction from './RecitationPlayerAction';
 import {useDispatch} from 'react-redux';
-import {getAllRecitations} from '../../store/actions/recitationsAction/recitationActions';
+import {
+  getAllRecitations,
+  getCurrentTrackCover,
+} from '../../store/actions/recitationsAction/recitationActions';
 
 const ReacitationPlayer = () => {
   const dispatch = useDispatch();
@@ -25,18 +28,16 @@ const ReacitationPlayer = () => {
   const [isSeeking, setIsSeeking] = useState(false);
   const [lastIndex, setLastIndex] = useState();
   const [playerState, setPlayerState] = useState(State.None);
+  const [currentTrackCover, setCurrentTrackCover] = useState();
 
   const {position, duration} = useProgress();
-  const { width, height } = useWindowDimensions();
 
-  // Subscribing to the following events inside MyComponent
+  // Subscribing to the events
   const events = [
     Event.PlaybackState,
     Event.PlaybackError,
     Event.PlaybackTrackChanged,
   ];
-
-  console.log("height:::::", height);
 
   useEffect(() => {
     TrackPlayer.setupPlayer();
@@ -52,6 +53,11 @@ const ReacitationPlayer = () => {
       ],
     });
     dispatch(getAllRecitations(onRecitationFetched));
+    setCurrentTrackCover(dispatch(getCurrentTrackCover()));
+
+    return () => {
+      TrackPlayer.destroy();
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -119,6 +125,7 @@ const ReacitationPlayer = () => {
 
     const nextTrack = await TrackPlayer.getTrack(currentTrackIndex + 1);
     setCurrentTrack(nextTrack);
+    setCurrentTrackCover(dispatch(getCurrentTrackCover()));
   };
   const handlePrevious = async () => {
     TrackPlayer.skipToPrevious().catch(error => {
@@ -133,6 +140,7 @@ const ReacitationPlayer = () => {
 
     const previousTrack = await TrackPlayer.getTrack(currentTrackIndex - 1);
     setCurrentTrack(previousTrack);
+    setCurrentTrackCover(dispatch(getCurrentTrackCover()));
   };
   const handleThumbsUp = () => {};
 
@@ -156,13 +164,20 @@ const ReacitationPlayer = () => {
 
   const slidingCompleted = async value => {
     await TrackPlayer.seekTo(value * duration);
-    setSliderValue(value);
     setIsSeeking(false);
+  };
+
+  const handleShuffle = () => {
+    const shuffledIndex = Math.floor(Math.random() * (lastIndex + 1));
+    TrackPlayer.skip(shuffledIndex).catch(() => {
+      Alert.alert('Error!!', 'Something went wrong');
+    });
+    setCurrentTrackCover(dispatch(getCurrentTrackCover()));
   };
 
   return (
     <View>
-      <RecitationCover />
+      <RecitationCover cover={currentTrackCover} />
       <View style={styles.recitationDetail}>
         <Text style={styles.reciterStyle}>{currentTrack?.artist}</Text>
         <Text style={styles.surahNameStyle}>{currentTrack?.title}</Text>
@@ -174,7 +189,7 @@ const ReacitationPlayer = () => {
         minimumValue={0}
         maximumValue={1}
         minimumTrackTintColor={colors.Black}
-        maximumTrackTintColor={colors.HawkesBlue}
+        maximumTrackTintColor={colors.Ecstasy}
         onSlidingStart={slidingStarted}
         onSlidingComplete={slidingCompleted}
       />
@@ -194,6 +209,7 @@ const ReacitationPlayer = () => {
         onNext={handleNext}
         onPrevious={handlePrevious}
         onThumbsUp={handleThumbsUp}
+        onShuffle={handleShuffle}
         disable={playerState === 'loading' || playerState === 'idle'}
       />
     </View>

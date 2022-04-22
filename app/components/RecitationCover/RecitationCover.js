@@ -1,14 +1,15 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import RecitationCoverImage from '../../assets/images/recitation_cover.png';
+import BlurredImage from '../../assets/images/image_blur.png';
 import colors from '../../utils/colors';
 
-const RecitationCover = () => {
+const RecitationCover = ({cover}) => {
   return (
     <View style={styles.container}>
       <Image
         resizeMode="cover"
-        source={RecitationCoverImage}
+        defaultSource={BlurredImage}
+        source={{uri: cover}}
         style={styles.recitationCover}
       />
     </View>
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   },
   recitationCover: {
     width: '88%',
+    height: '100%',
     borderRadius: 19,
   },
 });

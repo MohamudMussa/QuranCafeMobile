@@ -1,9 +1,13 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import {recitationReducer} from './reducers/recitationReducer';
+import salahReducer from './reducers/salahReducer';
+import settingsReducer from './reducers/settingsReducer';
 
 const rootReducer = combineReducers({
   recitations: recitationReducer,
+  salah: salahReducer,
+  settings: settingsReducer,
 });
 
 const composeEnhancers =

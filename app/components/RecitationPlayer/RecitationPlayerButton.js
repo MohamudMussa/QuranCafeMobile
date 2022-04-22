@@ -15,13 +15,10 @@ const RecitationPlayerButton = ({icon, onPress, disable}) => {
 export default RecitationPlayerButton;
 
 const styles = StyleSheet.create({
-  container: disabled => {
-    console.log('disabled:::::', disabled);
-    return {
-      width: 25,
-      height: 25,
-    };
-  },
+  container: disabled => ({
+    width: 25,
+    height: 25,
+  }),
   iconStyle: {
     width: 20,
     height: 20,

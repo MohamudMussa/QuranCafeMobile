@@ -1,19 +1,34 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { getSalahTimings } from '../../store/actions/salahAction/salahActions';
+import {useDispatch} from 'react-redux';
+import {getNextSalahTiming} from '../../store/actions/salahAction/salahActions';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 
 const SalahTime = () => {
   const dispatch = useDispatch();
+  const [time, setTime] = useState({});
 
   useEffect(() => {
-    dispatch(getSalahTimings());
+    if (!time?.salahTime) {
+      setTime(dispatch(getNextSalahTiming()));
+    }
+    const interval = setInterval(() => {
+      setTime(dispatch(getNextSalahTiming()));
+    }, 60000);
+
+    return () => {
+      clearInterval(interval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyle}>23 mins - left until Duhur</Text>
+      <Text
+        style={
+          styles.textStyle
+        }>{`${time.salahTime} - left until ${time.salahTimeName}`}</Text>
     </View>
   );
 };

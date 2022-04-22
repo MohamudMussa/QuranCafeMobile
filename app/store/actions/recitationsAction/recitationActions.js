@@ -24,7 +24,7 @@ export const getAllRecitations = onSuccess => async dispatch => {
         });
       }
     })
-    .catch(error => {
+    .catch(() => {
       dispatch({type: GET_ALL_RECITATIONS.FAILURE});
     });
 };
@@ -33,7 +33,7 @@ export const getImagesListFromStorage = onSuccess => async dispatch => {
   const unParseList = await AsyncStorage.getItem('image_list');
   const parsedList = JSON.parse(unParseList);
   if (parsedList && parsedList.length > 0) {
-    dispatch({type: GET_IMAGE_LIST, payload: parsedList});
+    dispatch({type: GET_IMAGE_LIST.SUCCESS, payload: parsedList});
     return onSuccess();
   }
 
@@ -41,11 +41,26 @@ export const getImagesListFromStorage = onSuccess => async dispatch => {
   if (data && data.length > 0) {
     const nameListData = data.map(d => d.name);
     saveValue('image_list', JSON.stringify(nameListData));
-    dispatch({type: GET_IMAGE_LIST, payload: nameListData});
+    dispatch({type: GET_IMAGE_LIST.SUCCESS, payload: nameListData});
     return onSuccess();
   }
 
   if (error) {
     Alert.alert('Error!!', 'Error while fetching cover list');
   }
+};
+
+export const getCurrentTrackCover = () => (_, getState) => {
+  const imageList = getState().recitations?.imageList;
+  const currentImageName =
+    imageList[Math.floor(Math.random() * imageList.length)];
+  const {publicURL, error} = supabaseClient.storage
+    .from('images')
+    .getPublicUrl(currentImageName);
+
+  if (error) {
+    console.log(`error while fetching image::${currentImageName}`);
+  }
+
+  return publicURL;
 };

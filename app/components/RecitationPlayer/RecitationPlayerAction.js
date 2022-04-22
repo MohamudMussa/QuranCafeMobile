@@ -13,6 +13,7 @@ const RecitationPlayerAction = ({
   onSeek,
   onThumbsUp,
   disable,
+  onShuffle,
 }) => {
   return (
     <View style={styles.container}>
@@ -41,13 +42,13 @@ const RecitationPlayerAction = ({
         />
       )}
       <RecitationPlayerButton
-        icon={icons.HeartIcon}
-        onPress={onThumbsUp}
+        icon={icons.ShuffleIcon}
+        onPress={onShuffle}
         disable={disable}
       />
       <RecitationPlayerButton
-        icon={icons.ArrowRightIcon}
-        onPress={onNext}
+        icon={icons.HeartIcon}
+        onPress={onThumbsUp}
         disable={disable}
       />
     </View>
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     width: '90%',
     height: '10.8%',
-    backgroundColor: colors.Black,
+    backgroundColor: colors.Ecstasy,
     borderRadius: 24,
     flexDirection: 'row',
     alignSelf: 'center',
