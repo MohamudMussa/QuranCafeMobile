@@ -45,6 +45,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    shadowColor: colors.blonde,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 8.84,
+    elevation: 5,
   },
   textStyle: {
     fontSize: 15,
