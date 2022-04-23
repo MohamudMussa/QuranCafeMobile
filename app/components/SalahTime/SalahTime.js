@@ -37,6 +37,7 @@ export default SalahTime;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 10,
     width: '80%',
     height: '4.55%',
     borderRadius: 40,
