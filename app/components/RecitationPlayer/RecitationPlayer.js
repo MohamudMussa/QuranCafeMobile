@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: fonts.PoppinsMedium,
     color: colors.NutralBlack,
-    marginTop: 40,
+    marginTop: 0,
     textAlign: 'center',
   },
   surahNameStyle: {

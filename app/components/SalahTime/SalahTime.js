@@ -37,13 +37,22 @@ export default SalahTime;
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
-    height: '6.55%',
+    marginTop: 10,
+    width: '80%',
+    height: '4.55%',
     borderRadius: 40,
-    backgroundColor: colors.Ecstasy,
+    backgroundColor: colors.blonde,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    shadowColor: colors.blonde,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 8.84,
+    elevation: 5,
   },
   textStyle: {
     fontSize: 15,

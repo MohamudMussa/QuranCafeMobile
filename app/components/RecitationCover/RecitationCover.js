@@ -20,22 +20,22 @@ export default RecitationCover;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 32,
+    marginTop: 50,
     alignItems: 'center',
     backgroundColor: colors.white,
-    shadowColor: colors.Black,
+    shadowColor: colors.Ecstasy,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 10,
     },
-    shadowOpacity: 0.15,
-    shadowRadius: 2.84,
+    shadowOpacity: 0.30,
+    shadowRadius: 8.84,
     elevation: 5,
     height: '49.5%',
   },
   recitationCover: {
-    width: '88%',
-    height: '100%',
+    width: '75%',
+    height: '90%',
     borderRadius: 19,
   },
 });
