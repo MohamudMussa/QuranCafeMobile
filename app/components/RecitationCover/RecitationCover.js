@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     shadowColor: colors.Ecstasy,
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 15,
     },
     shadowOpacity: 0.30,
     shadowRadius: 8.84,
