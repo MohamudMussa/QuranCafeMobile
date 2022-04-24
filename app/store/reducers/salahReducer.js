@@ -1,7 +1,8 @@
-import {GET_SALAH_TIMINGS} from '../actions/salahAction/Types';
+import {GET_HIJRI_MONTH, GET_SALAH_TIMINGS} from '../actions/salahAction/Types';
 
 const initialState = {
   timings: [],
+  hijriDate: '',
   loading: false,
 };
 
@@ -22,6 +23,11 @@ const salahReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case GET_HIJRI_MONTH:
+      return {
+        ...state,
+        hijriDate: action.payload,
       };
     default:
       return state;

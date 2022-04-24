@@ -7,6 +7,7 @@ import TrackPlayer, {
   State,
   Event,
   useTrackPlayerEvents,
+  RepeatMode,
 } from 'react-native-track-player';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
@@ -28,6 +29,7 @@ const ReacitationPlayer = () => {
   const [isSeeking, setIsSeeking] = useState(false);
   const [lastIndex, setLastIndex] = useState();
   const [playerState, setPlayerState] = useState(State.None);
+  const [loop, setLoop] = useState(false);
   const [currentTrackCover, setCurrentTrackCover] = useState();
 
   const {position, duration} = useProgress();
@@ -79,13 +81,19 @@ const ReacitationPlayer = () => {
         'Playback Error!!',
         'An error occured while playing the current track.',
       );
+    } else if (event.type === Event.PlaybackQueueEnded) {
+      console.log('event ::::', event);
+      Alert.alert('Playback', 'Playback Queue Ended');
     }
   });
 
   const onRecitationFetched = tracks => {
-    setCurrentTrack(tracks[0]);
+    TrackPlayer.add(tracks).then(() => {
+      TrackPlayer.setRepeatMode(RepeatMode.Off);
+    });
     setLastIndex(tracks.length - 1);
-    TrackPlayer.add(tracks);
+    const shuffledIndex = Math.floor(Math.random() * tracks.length);
+    setCurrentTrack(tracks[shuffledIndex]);
   };
 
   const handlePlay = () => {
@@ -102,6 +110,18 @@ const ReacitationPlayer = () => {
     }
   };
 
+  const handleRepeat = () => {
+    TrackPlayer.getRepeatMode().then(repeatMode => {
+      if (repeatMode === RepeatMode.Off) {
+        TrackPlayer.setRepeatMode(RepeatMode.Track);
+        setLoop(true);
+      } else {
+        TrackPlayer.setRepeatMode(RepeatMode.Off);
+        setLoop(false);
+      }
+    });
+  };
+
   const handleSeek = async () => {
     let newPosition = await TrackPlayer.getPosition();
     newPosition += 10;
@@ -112,21 +132,6 @@ const ReacitationPlayer = () => {
     TrackPlayer.seekTo(newPosition);
   };
 
-  const handleNext = async () => {
-    TrackPlayer.skipToNext().catch(error => {
-      Alert.alert('Error!!', 'Something went wrong');
-    });
-    const currentTrackIndex = await TrackPlayer.getCurrentTrack();
-
-    if (currentTrackIndex === lastIndex) {
-      setCurrentTrack(0);
-      return;
-    }
-
-    const nextTrack = await TrackPlayer.getTrack(currentTrackIndex + 1);
-    setCurrentTrack(nextTrack);
-    setCurrentTrackCover(dispatch(getCurrentTrackCover()));
-  };
   const handlePrevious = async () => {
     TrackPlayer.skipToPrevious().catch(error => {
       Alert.alert('Error!!', 'Something went wrong');
@@ -167,12 +172,16 @@ const ReacitationPlayer = () => {
     setIsSeeking(false);
   };
 
-  const handleShuffle = () => {
-    const shuffledIndex = Math.floor(Math.random() * (lastIndex + 1));
-    TrackPlayer.skip(shuffledIndex).catch(() => {
+  const handleShuffle = async () => {
+    try {
+      const shuffledIndex = Math.floor(Math.random() * (lastIndex + 1));
+      await TrackPlayer.skip(shuffledIndex);
+      const shuffledTrack = await TrackPlayer.getTrack(shuffledIndex);
+      setCurrentTrack(shuffledTrack);
+      setCurrentTrackCover(dispatch(getCurrentTrackCover()));
+    } catch (err) {
       Alert.alert('Error!!', 'Something went wrong');
-    });
-    setCurrentTrackCover(dispatch(getCurrentTrackCover()));
+    }
   };
 
   return (
@@ -206,10 +215,11 @@ const ReacitationPlayer = () => {
         onPlay={handlePlay}
         onPause={handlePause}
         onSeek={handleSeek}
-        onNext={handleNext}
         onPrevious={handlePrevious}
         onThumbsUp={handleThumbsUp}
         onShuffle={handleShuffle}
+        onRepeat={handleRepeat}
+        isOnLoop={loop}
         disable={playerState === 'loading' || playerState === 'idle'}
       />
     </View>

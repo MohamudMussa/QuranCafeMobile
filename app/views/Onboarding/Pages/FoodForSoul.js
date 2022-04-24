@@ -1,20 +1,24 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import OnboardingStyles from '../styles';
 import Quran from '../../../assets/images/quran3.png';
 import fonts from '../../../utils/fonts';
 import colors from '../../../utils/colors';
 import OnboardingButton from '../../../components/onboarding/OnboardingButton/OnboardingButton';
 import OnboardingStep from '../../../components/onboarding/OnboardingStep/OnboardingStep';
+import OnboardingBackground from '../../../assets/images/onboarding3-bg.png';
 
 const FoodForSoul = ({onPress}) => {
   return (
-    <View style={OnboardingStyles.pageContainer}>
+    <ImageBackground
+      source={OnboardingBackground}
+      style={OnboardingStyles.pageContainer}
+      imageStyle={styles.OnbordingImageStyle}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Food for the soul</Text>
         <Image
           source={Quran}
-          style={OnboardingStyles.imageStyle}
+          style={[OnboardingStyles.imageStyle, styles.imageStyle]}
           resizeMode="contain"
         />
         <View style={styles.ayahContainer}>
@@ -36,7 +40,7 @@ const FoodForSoul = ({onPress}) => {
         </View>
         <OnboardingStep step={3} />
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -71,12 +75,22 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   actionStyle: {
-    marginBottom: 10,
+    marginBottom: 40,
   },
   actionButton: {
     marginBottom: 28,
   },
   buttonStyle: {
     width: 165,
+  },
+  OnbordingImageStyle: {
+    width: 1080,
+    height: 1080,
+    left: -400,
+    top: -470,
+    transform: [{rotate: '-270 deg'}],
+  },
+  imageStyle: {
+    marginTop: 20,
   },
 });

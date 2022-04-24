@@ -9,7 +9,8 @@ const colors = {
   Nutral5: '#F5F5FA',
   LightGrey: 'rgba(23, 23, 23, 0.5)',
   Nurtral40: '#B8B8C7',
-  blonde: '#FC8C3B' ,
+  blonde: '#FC8C3B',
+  Silver: '#C1C1C1',
 };
 
 export default colors;

@@ -17,7 +17,7 @@ const Onboarding = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={OnboardingStyle.container}>
+    <View style={OnboardingStyle.container}>
       <PagerView
         ref={pagerRef}
         style={OnboardingStyle.pageViewStyle}
@@ -33,7 +33,7 @@ const Onboarding = ({navigation}) => {
           <FoodForSoul onPress={setOnboarding} />
         </View>
       </PagerView>
-    </SafeAreaView>
+    </View>
   );
 };
 

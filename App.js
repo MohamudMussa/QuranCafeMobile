@@ -10,10 +10,28 @@ import React, {useState} from 'react';
 
 import {Provider} from 'react-redux';
 import AppNavigator from './app/navigators/AppNavigator/AppNavigator';
-import OnboardingNavigator from './app/navigators/StackNavigators/OnboardingNavigator/OnboardingNavigator';
 import store from './app/store/store';
-import Onboarding from './app/views/Onboarding/Onboarding';
 import SplashScreen from './app/views/SplashScreen/SplashScreen';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {
+  faPlay,
+  faPause,
+  faRepeat,
+  faArrowLeft,
+  faRandom,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
+import {faHeart} from '@fortawesome/free-regular-svg-icons';
+
+library.add(
+  faPlay,
+  faPause,
+  faHeart,
+  faRepeat,
+  faArrowLeft,
+  faRandom,
+  faChevronLeft,
+);
 
 const App = () => {
   const [appReady, setAppReady] = useState(false);
