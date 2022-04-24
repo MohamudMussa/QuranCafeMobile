@@ -7,7 +7,7 @@ const OnboardingStep = ({step}) => {
     <View style={styles.container}>
       <View style={styles.stepStyle(step, 1)} />
       <View style={styles.stepStyle(step, 2)} />
-      <View style={[styles.stepStyle(step, 3), styles.colorStyle(step)]} />
+      <View style={styles.stepStyle(step, 3)} />
     </View>
   );
 };
@@ -25,10 +25,7 @@ const styles = StyleSheet.create({
     width: step === current ? 24 : 6,
     borderRadius: 3,
     height: 6,
-    backgroundColor: step === current ? colors.Black : colors.LightGrey,
+    backgroundColor: step === current ? colors.Ecstasy : colors.LightGrey,
     marginHorizontal: 2,
-  }),
-  colorStyle: step => ({
-    backgroundColor: step === 3 ? colors.Ecstasy : colors.LightGrey,
   }),
 });

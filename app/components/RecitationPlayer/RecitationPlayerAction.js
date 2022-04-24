@@ -8,12 +8,12 @@ const RecitationPlayerAction = ({
   isPlaying,
   onPlay,
   onPause,
-  onNext,
   onPrevious,
-  onSeek,
   onThumbsUp,
   disable,
   onShuffle,
+  onRepeat,
+  isOnLoop,
 }) => {
   return (
     <View style={styles.container}>
@@ -23,9 +23,10 @@ const RecitationPlayerAction = ({
         disable={disable}
       />
       <RecitationPlayerButton
-        icon={icons.ReplayTenIcon}
-        onPress={onSeek}
+        icon={icons.loopIcon}
+        onPress={onRepeat}
         disable={disable}
+        isOnLoop={isOnLoop}
       />
       {!isPlaying && (
         <RecitationPlayerButton
@@ -50,6 +51,7 @@ const RecitationPlayerAction = ({
         icon={icons.HeartIcon}
         onPress={onThumbsUp}
         disable={disable}
+        fontType="far"
       />
     </View>
   );

@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import OnboardingStyles from '../styles';
 import Quran from '../../../assets/images/quran2.png';
 import fonts from '../../../utils/fonts';
@@ -17,6 +24,7 @@ import PickerInput from '../../../components/PickerInput/PickerInput';
 import routes from '../../../utils/routes';
 import {useNavigation} from '@react-navigation/core';
 import {getSalahTimings} from '../../../store/actions/salahAction/salahActions';
+import OnboardingBackground from '../../../assets/images/onboarding2-bg.png';
 
 const StayFocused = ({onPress}) => {
   const [city, setCity] = useState();
@@ -46,12 +54,15 @@ const StayFocused = ({onPress}) => {
   };
 
   return (
-    <View style={OnboardingStyles.pageContainer}>
+    <ImageBackground
+      source={OnboardingBackground}
+      style={OnboardingStyles.pageContainer}
+      imageStyle={styles.imageStyle}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Stay Focused</Text>
         <Image
           source={Quran}
-          style={OnboardingStyles.imageStyle}
+          style={[OnboardingStyles.imageStyle, styles.quranImageStyle]}
           resizeMode="contain"
         />
         <View style={styles.ayahContainer}>
@@ -107,7 +118,7 @@ const StayFocused = ({onPress}) => {
         size="large"
         style={styles.loaderStyle}
       />
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -132,7 +143,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   actionStyle: {
-    marginBottom: 10,
+    marginBottom: 40,
     zIndex: 9,
   },
   actionButton: {
@@ -151,5 +162,14 @@ const styles = StyleSheet.create({
     zIndex: 99,
     bottom: 200,
     alignSelf: 'center',
+  },
+  imageStyle: {
+    width: 1080,
+    height: 1080,
+    top: -500,
+    left: -400,
+  },
+  quranImageStyle: {
+    marginTop: 20,
   },
 });

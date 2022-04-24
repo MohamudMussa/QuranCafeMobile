@@ -1,8 +1,10 @@
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import colors from '../../../utils/colors';
 import fonts from '../../../utils/fonts';
 import icons from '../../../utils/icons';
+import FontIcon from '../../general/FontIcon/FontIcon';
 
 const StackHeader = ({title}) => {
   const navigation = useNavigation();
@@ -10,10 +12,10 @@ const StackHeader = ({title}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Image
-          source={icons.ChevronLeftIcon}
-          style={styles.iconStyle}
-          resizeMode="contain"
+        <FontIcon
+          icon={icons.ChevronLeftIcon}
+          color={colors.Nutral80}
+          size={12}
         />
       </TouchableOpacity>
       <Text style={styles.titleStyle}>{title}</Text>

@@ -20,7 +20,7 @@ export default RecitationCover;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 30,
     alignItems: 'center',
     backgroundColor: colors.white,
     shadowColor: colors.Ecstasy,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 15,
     },
-    shadowOpacity: 0.30,
+    shadowOpacity: 0.3,
     shadowRadius: 8.84,
     elevation: 5,
     height: '49.5%',

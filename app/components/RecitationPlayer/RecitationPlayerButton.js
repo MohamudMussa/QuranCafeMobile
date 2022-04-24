@@ -1,15 +1,32 @@
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import colors from '../../utils/colors';
+import FontIcon from '../general/FontIcon/FontIcon';
 
-const RecitationPlayerButton = ({icon, onPress, disable}) => {
+const RecitationPlayerButton = ({
+  icon,
+  onPress,
+  disable,
+  fontType,
+  isOnLoop,
+}) => {
   return (
     <TouchableOpacity
       style={styles.container(disable)}
       onPress={onPress}
       disable={disable}>
-      <Image source={icon} resizeMode="contain" style={styles.iconStyle} />
+      <FontIcon
+        icon={icon}
+        size={22}
+        color={isOnLoop ? colors.Black : colors.White}
+        type={fontType}
+      />
     </TouchableOpacity>
   );
+};
+
+RecitationPlayerButton.defaultProps = {
+  fontType: 'fas',
 };
 
 export default RecitationPlayerButton;

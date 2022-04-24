@@ -1,6 +1,7 @@
 import axios from 'axios';
-import {GET_SALAH_TIMINGS} from './Types';
+import {GET_HIJRI_MONTH, GET_SALAH_TIMINGS} from './Types';
 import Moment from 'moment';
+import { ordinal } from '../../../utils/utilities';
 
 export const getSalahTimings = (city, country) => (dispatch, getState) => {
   const {userCity, userCountry} = getState().settings;
@@ -16,10 +17,15 @@ export const getSalahTimings = (city, country) => (dispatch, getState) => {
     )
     .then(response => {
       const timings = response.data.data.map(d => d.timings);
-      console.log('timings:::', timings);
+      const nowDay = Moment().format('DD');
+
+      const hijri = response.data.data[nowDay - 1].date.hijri;
+      const hijriDate = `${ordinal(hijri.day)} ${hijri.month.en} ${hijri.year}`;
       dispatch({type: GET_SALAH_TIMINGS.SUCCESS, payload: timings});
+      dispatch({type: GET_HIJRI_MONTH, payload: hijriDate});
     })
-    .catch(() => {
+    .catch(err => {
+      console.log('in the getSalahTimings:::error-->', err);
       dispatch({type: GET_SALAH_TIMINGS.FAILURE});
     });
 };
@@ -36,6 +42,8 @@ export const getNextSalahTiming = () => (_, store) => {
     const time = t;
     delete time.Sunrise;
     delete time.Sunset;
+    delete time.Imsak;
+    delete time.Midnight;
     return time;
   });
   const nowDay = Moment().format('DD');
@@ -67,6 +75,5 @@ export const getNextSalahTiming = () => (_, store) => {
   );
   const addedDuration = Moment.duration(diffToMidNight + diffAfterMidNight);
   salahTime = Moment.duration(addedDuration).humanize(true);
-  console.log('salah Time::', salahTime);
   return {salahTimeName, salahTime: salahTime.split('in ')[1]};
 };
