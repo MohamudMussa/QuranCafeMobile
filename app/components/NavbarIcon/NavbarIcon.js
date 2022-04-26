@@ -11,7 +11,7 @@ const NavBarIcon = ({focused, icon, size}) => {
     <RenderIcon
       size={22}
       set={focused ? 'bold' : 'light'}
-      primaryColor={focused ? colors.Ecstasy : colors.Nutral80}
+      primaryColor={focused ? colors.Ecstasy : colors.White}
     />
   );
 };

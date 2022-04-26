@@ -215,7 +215,7 @@ const ReacitationPlayer = () => {
         thumbImage={ThumbImage}
         minimumValue={0}
         maximumValue={1}
-        minimumTrackTintColor={colors.Black}
+        minimumTrackTintColor={colors.White}
         maximumTrackTintColor={colors.Ecstasy}
         onSlidingStart={slidingStarted}
         onSlidingComplete={slidingCompleted}
@@ -250,23 +250,22 @@ export default ReacitationPlayer;
 
 const styles = StyleSheet.create({
   reciterStyle: {
-    fontSize: 20,
+    fontSize: 25,
     lineHeight: 30,
-    fontWeight: '500',
-    fontFamily: fonts.PoppinsMedium,
-    color: colors.NutralBlack,
+    fontWeight: '400',
+    fontFamily: fonts.ConsolasRegular,
+    color: colors.White,
     marginTop: 0,
     textAlign: 'center',
   },
   surahNameStyle: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '400',
-    fontFamily: fonts.PoppinsRegular,
-    color: colors.NutralBlack,
+    fontFamily: fonts.ConsolasRegular,
+    color: colors.White,
     lineHeight: 24,
     textAlign: 'center',
     marginTop: 7,
-    opacity: 0.5,
   },
   sliderStyle: {
     width: '90%',
@@ -287,7 +286,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '400',
     fontFamily: fonts.PoppinsRegular,
-    color: colors.Black,
+    color: colors.White,
   },
   recitationDetail: {
     height: '12.7%',

@@ -1,24 +1,31 @@
-import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
 import ReacitationPlayer from '../../components/RecitationPlayer/RecitationPlayer';
 import SalahTime from '../../components/SalahTime/SalahTime';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
+import PlayerCover from '../../assets/images/player-cover.png';
 
 const Recitation = () => {
   const {hijriDate} = useSelector(state => state.salah);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <SalahTime />
-      <View style={styles.monthWrapper}>
-        <Text style={styles.monthText}>{`${hijriDate}`}</Text>
+    <ImageBackground
+      resizeMode="cover"
+      source={PlayerCover}
+      imageStyle={styles.backgroundImageStyle}
+      style={styles.container}>
+      <View style={styles.innerContainer}>
+        <SalahTime />
+        <View style={styles.monthWrapper}>
+          <Text style={styles.monthText}>{`${hijriDate}`}</Text>
+        </View>
+        <View style={styles.contentContainer}>
+          <ReacitationPlayer />
+        </View>
       </View>
-      <View style={styles.contentContainer}>
-        <ReacitationPlayer />
-      </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -27,7 +34,11 @@ export default Recitation;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
+  },
+  innerContainer: {
+    flex: 1,
+    marginTop: 40,
   },
   contentContainer: {
     flex: 1,
@@ -42,9 +53,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   monthText: {
-    fontFamily: fonts.PoppinsMedium,
-    color: colors.Silver,
+    fontFamily: fonts.ConsolasRegular,
+    color: colors.White,
     fontSize: 18,
     textAlign: 'center',
+  },
+  backgroundImageStyle: {
+    width: '100%',
+    height: 812,
   },
 });

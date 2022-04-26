@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
   },
   pageViewStyle: {
     flex: 1,
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleStyle: {
-    fontSize: 29,
-    fontFamily: fonts.PoppinsBold,
+    fontSize: 22,
+    fontFamily: fonts.ConsolasBold,
     fontWeight: '700',
     marginTop: 60,
     textAlign: 'center',

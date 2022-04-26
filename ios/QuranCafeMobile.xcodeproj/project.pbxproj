@@ -21,6 +21,9 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C52333B4C48441B9385F72A /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A87E55BAF8814C878961EF44 /* CourierPrime-Regular.ttf */; };
 		B5785A817B584B2D86CF2D4D /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26BD1FDC8A9C4073A0D501A7 /* Raleway-Bold.ttf */; };
+		0F3C93FBBDAB4E69AEF4A86F /* Consolas-Bold.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18F09EA8FDBE444096E9DEF6 /* Consolas-Bold.TTF */; };
+		C455D24D1A034020B3C91CCB /* Consolas.TTF in Resources */ = {isa = PBXBuildFile; fileRef = CB99BB7589FF44C6AD92A6D1 /* Consolas.TTF */; };
+		47BA27DF3ED8417DA61C614C /* Consolas-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACE4BE26B28B4F8BB4CB2327 /* Consolas-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,9 @@
 		E55FF290FCCE4C8F80CB05EA /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../app/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EF31BF02333949C197406AFB /* SFProText-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Regular.otf"; path = "../app/assets/fonts/SFProText-Regular.otf"; sourceTree = "<group>"; };
+		18F09EA8FDBE444096E9DEF6 /* Consolas-Bold.TTF */ = {isa = PBXFileReference; name = "Consolas-Bold.TTF"; path = "../app/assets/fonts/Consolas-Bold.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB99BB7589FF44C6AD92A6D1 /* Consolas.TTF */ = {isa = PBXFileReference; name = "Consolas.TTF"; path = "../app/assets/fonts/Consolas.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ACE4BE26B28B4F8BB4CB2327 /* Consolas-Bold.ttf */ = {isa = PBXFileReference; name = "Consolas-Bold.ttf"; path = "../app/assets/fonts/Consolas-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +179,9 @@
 				26BD1FDC8A9C4073A0D501A7 /* Raleway-Bold.ttf */,
 				83A39A15679A4D199F0977A8 /* SFProText-Semibold.otf */,
 				A87E55BAF8814C878961EF44 /* CourierPrime-Regular.ttf */,
+				18F09EA8FDBE444096E9DEF6 /* Consolas-Bold.TTF */,
+				CB99BB7589FF44C6AD92A6D1 /* Consolas.TTF */,
+				ACE4BE26B28B4F8BB4CB2327 /* Consolas-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -280,6 +289,9 @@
 				B5785A817B584B2D86CF2D4D /* Raleway-Bold.ttf in Resources */,
 				11357924F5264720A77C3440 /* SFProText-Semibold.otf in Resources */,
 				8C52333B4C48441B9385F72A /* CourierPrime-Regular.ttf in Resources */,
+				0F3C93FBBDAB4E69AEF4A86F /* Consolas-Bold.TTF in Resources */,
+				C455D24D1A034020B3C91CCB /* Consolas.TTF in Resources */,
+				47BA27DF3ED8417DA61C614C /* Consolas-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

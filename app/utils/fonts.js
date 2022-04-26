@@ -6,6 +6,8 @@ const fonts = {
   SFProTextSemibold: 'SFProText-Semibold',
   RailwayBold: 'Raleway-Bold',
   CourierPrimeRegular: 'CourierPrime-Regular',
+  ConsolasRegular: 'Consolas',
+  ConsolasBold: 'Consolas-Bold',
 };
 
 export default fonts;

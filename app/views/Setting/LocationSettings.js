@@ -17,6 +17,7 @@ import {
   setUserCountry,
 } from '../../store/actions/settingsAction/settingsAction';
 import colors from '../../utils/colors';
+import fonts from '../../utils/fonts';
 import routes from '../../utils/routes';
 
 const LocationSettings = () => {
@@ -101,7 +102,7 @@ export default LocationSettings;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
   },
   contentContainer: {
     flex: 1,
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   headerStyle: {
     height: 60,
     paddingTop: 10,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
   },
   informationWrapper: {
     width: '80%',
@@ -119,9 +120,10 @@ const styles = StyleSheet.create({
   },
   informationText: {
     fontSize: 14,
+    fontFamily: fonts.ConsolasRegular,
     fontWeight: '400',
     lineHeight: 24,
-    color: colors.Black,
+    color: colors.White,
     textAlign: 'center',
   },
   countryDropdownWrapper: {

@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   Image,
-  ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -15,7 +14,6 @@ import {getImagesListFromStorage} from '../../store/actions/recitationsAction/re
 import {setCityAndCountryFromStorage} from '../../store/actions/settingsAction/settingsAction';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
-import SplashBackground from '../../assets/images/splash-bg.png';
 import SplashQuran from '../../assets/images/splash-quran.png';
 import SplashStars from '../../assets/images/stars.png';
 
@@ -47,18 +45,10 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Image source={Logo} style={styles.logoStyle} />
-      <View style={styles.splashTextWrapper}>
-        <Text style={styles.splashText}>Ad free Quran.</Text>
-        <Text style={styles.splashText}>Free Forever.</Text>
-      </View>
-      <ImageBackground
-        source={SplashBackground}
-        style={styles.splashBgStyle}
-        resizeMethod="resize"
-        resizeMode="stretch"
-        imageStyle={styles.bgImageStyle}>
+      <Text style={styles.appTitleStyle}>Quran Cafe</Text>
+      <View style={styles.splashBgStyle}>
         <View>
           <Image
             source={SplashQuran}
@@ -71,7 +61,7 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
             resizeMode="contain"
           />
         </View>
-      </ImageBackground>
+      </View>
       <Image
         resizeMode="cover"
         source={SplashStars}
@@ -83,6 +73,10 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
         size="large"
         color={colors.White}
       />
+      <View style={styles.splashTextWrapper}>
+        <Text style={styles.splashText}>Ad free Quran.</Text>
+        <Text style={styles.splashText}>Free Forever.</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -90,6 +84,10 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
 export default SplashScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.Black,
+  },
   imageStyle: {
     width: '100%',
     height: '100%',
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
   },
   loader: {
     position: 'absolute',
-    bottom: -20,
+    bottom: 40,
     alignSelf: 'center',
   },
   logoStyle: {
@@ -107,20 +105,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   splashTextWrapper: {
-    marginTop: 25,
+    position: 'absolute',
+    bottom: 35,
+    left: 15,
   },
   splashText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
-    fontFamily: fonts.PoppinsBold,
-    textAlign: 'center',
+    fontFamily: fonts.ConsolasBold,
+    color: colors.White,
     lineHeight: 30,
   },
   splashQuranStyle: {
     width: 314,
     height: 450,
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: -40,
   },
   bgImageStyle: {
     width: 1040,
@@ -142,5 +142,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 100,
     right: -80,
+  },
+  appTitleStyle: {
+    fontSize: 26,
+    color: colors.White,
+    fontWeight: '700',
+    textAlign: 'center',
   },
 });

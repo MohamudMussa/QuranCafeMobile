@@ -54,10 +54,7 @@ const StayFocused = ({onPress}) => {
   };
 
   return (
-    <ImageBackground
-      source={OnboardingBackground}
-      style={OnboardingStyles.pageContainer}
-      imageStyle={styles.imageStyle}>
+    <View style={OnboardingStyles.pageContainer}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Stay Focused</Text>
         <Image
@@ -118,7 +115,7 @@ const StayFocused = ({onPress}) => {
         size="large"
         style={styles.loaderStyle}
       />
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -133,11 +130,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   ayahText: {
-    fontFamily: fonts.SFProTextRegular,
+    fontFamily: fonts.ConsolasBold,
     fontSize: 14,
     fontWeight: '400',
-    color: colors.Black,
-    width: '95%',
+    color: colors.White,
+    width: '85%',
     textAlign: 'center',
     alignSelf: 'center',
     lineHeight: 24,

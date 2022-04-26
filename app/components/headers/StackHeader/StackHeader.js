@@ -12,11 +12,7 @@ const StackHeader = ({title}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <FontIcon
-          icon={icons.ChevronLeftIcon}
-          color={colors.Nutral80}
-          size={12}
-        />
+        <FontIcon icon={icons.ChevronLeftIcon} color={colors.White} size={12} />
       </TouchableOpacity>
       <Text style={styles.titleStyle}>{title}</Text>
     </View>
@@ -40,7 +36,8 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 16,
     fontWeight: '500',
-    fontFamily: fonts.PoppinsMedium,
+    fontFamily: fonts.ConsolasRegular,
     alignItems: 'center',
+    color: colors.White,
   },
 });

@@ -9,6 +9,7 @@ const icons = {
   PauseIcon: 'pause',
   ShuffleIcon: 'random',
   ChevronLeftIcon: 'chevron-left',
+  SquareXMark: 'square-xmark',
 };
 
 export const navIcons = {

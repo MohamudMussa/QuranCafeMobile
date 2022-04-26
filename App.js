@@ -21,6 +21,7 @@ import {
   faRandom,
   faChevronLeft,
   faHeart as faHeartSolid,
+  faSquareXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import {faHeart} from '@fortawesome/free-regular-svg-icons';
 
@@ -33,6 +34,7 @@ library.add(
   faRandom,
   faChevronLeft,
   faHeartSolid,
+  faSquareXmark,
 );
 
 const App = () => {
@@ -40,7 +42,7 @@ const App = () => {
   const [isOnboarded, setIsOnboarded] = useState(false);
   return (
     <Provider store={store}>
-      {appReady ? (
+      {false ? (
         <AppNavigator onboarded={isOnboarded} />
       ) : (
         <SplashScreen
