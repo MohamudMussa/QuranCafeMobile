@@ -42,7 +42,7 @@ const App = () => {
   const [isOnboarded, setIsOnboarded] = useState(false);
   return (
     <Provider store={store}>
-      {false ? (
+      {appReady ? (
         <AppNavigator onboarded={isOnboarded} />
       ) : (
         <SplashScreen
