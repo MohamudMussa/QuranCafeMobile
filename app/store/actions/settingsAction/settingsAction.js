@@ -33,7 +33,6 @@ export const getCitiesOfCountry = country => dispatch => {
     })
     .then(response => {
       const {data} = response.data;
-      console.log('data::::', response);
       dispatch({type: GET_CITIES_OF_COUNTRY.SUCCESS, payload: data});
     })
     .catch(() => {

@@ -9,16 +9,17 @@ const RecitationPlayerButton = ({
   disable,
   fontType,
   isOnLoop,
+  isLiked,
 }) => {
   return (
     <TouchableOpacity
       style={styles.container(disable)}
       onPress={onPress}
-      disable={disable}>
+      disabled={disable}>
       <FontIcon
         icon={icon}
         size={22}
-        color={isOnLoop ? colors.Black : colors.White}
+        color={isOnLoop || isLiked ? colors.Black : colors.White}
         type={fontType}
       />
     </TouchableOpacity>

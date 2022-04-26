@@ -18,6 +18,7 @@ import {useDispatch} from 'react-redux';
 import {
   getAllRecitations,
   getCurrentTrackCover,
+  thumbsUpRecitation,
 } from '../../store/actions/recitationsAction/recitationActions';
 
 const ReacitationPlayer = () => {
@@ -28,6 +29,7 @@ const ReacitationPlayer = () => {
   const [sliderValue, setSliderValue] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
   const [lastIndex, setLastIndex] = useState();
+  const [currentTrackIndex, setCurrentTrackIndex] = useState();
   const [playerState, setPlayerState] = useState(State.None);
   const [loop, setLoop] = useState(false);
   const [currentTrackCover, setCurrentTrackCover] = useState();
@@ -82,7 +84,6 @@ const ReacitationPlayer = () => {
         'An error occured while playing the current track.',
       );
     } else if (event.type === Event.PlaybackQueueEnded) {
-      console.log('event ::::', event);
       Alert.alert('Playback', 'Playback Queue Ended');
     }
   });
@@ -93,6 +94,7 @@ const ReacitationPlayer = () => {
     });
     setLastIndex(tracks.length - 1);
     const shuffledIndex = Math.floor(Math.random() * tracks.length);
+    setCurrentTrackIndex(shuffledIndex);
     setCurrentTrack(tracks[shuffledIndex]);
   };
 
@@ -136,7 +138,6 @@ const ReacitationPlayer = () => {
     TrackPlayer.skipToPrevious().catch(error => {
       Alert.alert('Error!!', 'Something went wrong');
     });
-    const currentTrackIndex = await TrackPlayer.getCurrentTrack();
 
     if (currentTrackIndex === 0) {
       setCurrentTrack(lastIndex);
@@ -147,7 +148,23 @@ const ReacitationPlayer = () => {
     setCurrentTrack(previousTrack);
     setCurrentTrackCover(dispatch(getCurrentTrackCover()));
   };
-  const handleThumbsUp = () => {};
+  const handleThumbsUp = () => {
+    thumbsUpRecitation(
+      currentTrack?.recitation_id,
+      currentTrack.upvote,
+      onSuccess,
+    );
+  };
+
+  const onSuccess = async () => {
+    TrackPlayer.updateMetadataForTrack(currentTrackIndex, {
+      ...currentTrack,
+      isLiked: true,
+    }).then(async () => {
+      const track = await TrackPlayer.getTrack(currentTrackIndex);
+      setCurrentTrack(track);
+    });
+  };
 
   const getAudioTimeString = seconds => {
     const h = parseInt(seconds / (60 * 60), 10);
@@ -177,6 +194,7 @@ const ReacitationPlayer = () => {
       const shuffledIndex = Math.floor(Math.random() * (lastIndex + 1));
       await TrackPlayer.skip(shuffledIndex);
       const shuffledTrack = await TrackPlayer.getTrack(shuffledIndex);
+      setCurrentTrackIndex(shuffledIndex);
       setCurrentTrack(shuffledTrack);
       setCurrentTrackCover(dispatch(getCurrentTrackCover()));
     } catch (err) {
@@ -212,6 +230,8 @@ const ReacitationPlayer = () => {
       </View>
       <RecitationPlayerAction
         isPlaying={isPlaying}
+        isLiked={currentTrack?.isLiked}
+        recitationId={currentTrack?.recitation_id}
         onPlay={handlePlay}
         onPause={handlePause}
         onSeek={handleSeek}
