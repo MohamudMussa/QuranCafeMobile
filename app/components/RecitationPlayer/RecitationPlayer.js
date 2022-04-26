@@ -206,8 +206,9 @@ const ReacitationPlayer = () => {
     <View>
       <RecitationCover cover={currentTrackCover} />
       <View style={styles.recitationDetail}>
-        <Text style={styles.reciterStyle}>{currentTrack?.artist}</Text>
         <Text style={styles.surahNameStyle}>{currentTrack?.title}</Text>
+        <Text style={styles.reciterStyle}>{currentTrack?.artist}</Text>
+
       </View>
       <Slider
         style={styles.sliderStyle}
@@ -250,7 +251,7 @@ export default ReacitationPlayer;
 
 const styles = StyleSheet.create({
   reciterStyle: {
-    fontSize: 25,
+    fontSize: 14,
     lineHeight: 30,
     fontWeight: '400',
     fontFamily: fonts.ConsolasRegular,
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   surahNameStyle: {
-    fontSize: 17,
+    fontSize: 27,
     fontWeight: '400',
     fontFamily: fonts.ConsolasRegular,
     color: colors.White,
