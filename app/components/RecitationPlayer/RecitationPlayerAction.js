@@ -14,6 +14,7 @@ const RecitationPlayerAction = ({
   onShuffle,
   onRepeat,
   isOnLoop,
+  isLiked,
 }) => {
   return (
     <View style={styles.container}>
@@ -50,8 +51,9 @@ const RecitationPlayerAction = ({
       <RecitationPlayerButton
         icon={icons.HeartIcon}
         onPress={onThumbsUp}
-        disable={disable}
-        fontType="far"
+        disable={isLiked || disable}
+        fontType={isLiked ? 'fas' : 'far'}
+        isLiked={isLiked}
       />
     </View>
   );

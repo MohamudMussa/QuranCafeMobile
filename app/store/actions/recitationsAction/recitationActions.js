@@ -5,9 +5,17 @@ import {supabaseClient} from '../../../superbase/init';
 import {GET_ALL_RECITATIONS, GET_IMAGE_LIST} from './Types';
 
 export const getAllRecitations = onSuccess => async dispatch => {
+  const likedRecitationsInStorage = await AsyncStorage.getItem(
+    'likedRecitations',
+  );
+  const likedRecitations = likedRecitationsInStorage
+    ? JSON.parse(likedRecitationsInStorage)
+    : [];
   supabaseClient
     .from('recitations')
-    .select('surah, video_url, mp3, id, up_vote, reciter:reciter_id ( name )')
+    .select(
+      'recitation_id, surah, video_url, mp3, id, up_vote, reciter:reciter_id ( name )',
+    )
     .then(response => {
       if (response.error) {
         dispatch({type: GET_ALL_RECITATIONS.FAILURE});
@@ -16,6 +24,9 @@ export const getAllRecitations = onSuccess => async dispatch => {
           url: track.mp3, // Load media from the network
           title: track.surah,
           artist: track?.reciter?.name,
+          recitation_id: track?.recitation_id,
+          isLiked: likedRecitations.includes(track?.recitation_id),
+          upvote: track.up_vote,
         }));
         onSuccess(formattedTrackData);
         dispatch({
@@ -63,4 +74,25 @@ export const getCurrentTrackCover = () => (_, getState) => {
   }
 
   return publicURL;
+};
+
+export const thumbsUpRecitation = async (recitationId, upvotes, onSuccess) => {
+  const likedRecitationsInStorage = await AsyncStorage.getItem(
+    'likedRecitations',
+  );
+  const {data, error} = await supabaseClient
+    .from('recitations')
+    .update({up_vote: upvotes + 1})
+    .eq('recitation_id', recitationId);
+  if (data) {
+    const likedRecitations = likedRecitationsInStorage
+      ? JSON.parse(likedRecitationsInStorage)
+      : [];
+    likedRecitations.push(recitationId);
+    saveValue('likedRecitations', JSON.stringify(likedRecitations));
+    onSuccess();
+  }
+  if (error) {
+    console.log('error while updating upvote::', error);
+  }
 };

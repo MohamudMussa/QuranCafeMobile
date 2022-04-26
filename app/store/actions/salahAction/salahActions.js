@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {GET_HIJRI_MONTH, GET_SALAH_TIMINGS} from './Types';
 import Moment from 'moment';
-import { ordinal } from '../../../utils/utilities';
+import {ordinal} from '../../../utils/utilities';
 
 export const getSalahTimings = (city, country) => (dispatch, getState) => {
   const {userCity, userCountry} = getState().settings;
@@ -24,8 +24,7 @@ export const getSalahTimings = (city, country) => (dispatch, getState) => {
       dispatch({type: GET_SALAH_TIMINGS.SUCCESS, payload: timings});
       dispatch({type: GET_HIJRI_MONTH, payload: hijriDate});
     })
-    .catch(err => {
-      console.log('in the getSalahTimings:::error-->', err);
+    .catch(() => {
       dispatch({type: GET_SALAH_TIMINGS.FAILURE});
     });
 };
