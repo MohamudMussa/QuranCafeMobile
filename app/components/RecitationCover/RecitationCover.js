@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     alignItems: 'center',
     backgroundColor: colors.white,
-    shadowColor: colors.Black,
     shadowOffset: {
       width: 0,
       height: 15,
