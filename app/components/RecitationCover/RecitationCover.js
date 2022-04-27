@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
   recitationCover: {
     width: '75%',
     height: '90%',
-    borderRadius: 19,
+    borderRadius: 10,
   },
 });
