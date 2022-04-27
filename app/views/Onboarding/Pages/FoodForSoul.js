@@ -10,10 +10,7 @@ import OnboardingBackground from '../../../assets/images/onboarding3-bg.png';
 
 const FoodForSoul = ({onPress}) => {
   return (
-    <ImageBackground
-      source={OnboardingBackground}
-      style={OnboardingStyles.pageContainer}
-      imageStyle={styles.OnbordingImageStyle}>
+    <View style={OnboardingStyles.pageContainer}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Food for the soul</Text>
         <Image
@@ -40,7 +37,7 @@ const FoodForSoul = ({onPress}) => {
         </View>
         <OnboardingStep step={3} />
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -54,21 +51,21 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   infoText: {
-    fontFamily: fonts.SFProTextSemibold,
+    fontFamily: fonts.ConsolasBold,
     fontSize: 14,
-    fontWeight: '600',
-    color: colors.Black,
+    fontWeight: '700',
+    color: colors.White,
     width: '95%',
     textAlign: 'center',
     alignSelf: 'center',
     lineHeight: 24,
   },
   infoDescription: {
-    fontFamily: fonts.SFProTextRegular,
+    fontFamily: fonts.ConsolasBold,
     fontSize: 14,
-    fontWeight: '400',
-    color: colors.Black,
-    width: '95%',
+    fontWeight: '700',
+    color: colors.White,
+    width: '60%',
     textAlign: 'center',
     alignSelf: 'center',
     lineHeight: 24,

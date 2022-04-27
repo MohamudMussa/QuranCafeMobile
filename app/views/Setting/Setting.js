@@ -7,7 +7,6 @@ import LogoWithText from '../../assets/images/logo-with-text.png';
 import routes from '../../utils/routes';
 
 const Setting = ({navigation}) => {
-
   const handleSharing = () => {
     Share.share({
       message: 'https://quran.cafe/',
@@ -26,9 +25,6 @@ const Setting = ({navigation}) => {
             onPress={() => navigation.navigate(routes.LocationSettingsScreen)}
           />
           <SettingsButton text="Share Recitation" onPress={handleSharing} />
-        </View>
-
-        <View style={styles.actionSection}>
           <SettingsButton
             text="About Quran Cafe"
             onPress={() => navigation.navigate(routes.AboutScreen)}
@@ -51,16 +47,16 @@ export default Setting;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: colors.Nutral5,
+    backgroundColor: colors.Black,
   },
   headerStyle: {
     height: 60,
     paddingTop: 10,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
   },
   actionSection: {
     marginTop: 28,
@@ -68,7 +64,7 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     position: 'relative',
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
     marginTop: 1,
   },
   logoStyle: {

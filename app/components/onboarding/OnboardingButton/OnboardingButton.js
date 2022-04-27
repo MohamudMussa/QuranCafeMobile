@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
     height: 54,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: disabled ? colors.LightGrey : colors.Ecstasy,
+    backgroundColor: disabled ? colors.LightOrange : colors.Ecstasy,
     borderRadius: 10,
     alignSelf: 'center',
   }),
   buttonText: {
     fontSize: 16,
     fontWeight: '700',
-    fontFamily: fonts.RailwayBold,
+    fontFamily: fonts.ConsolasBold,
     color: colors.White,
   },
 });

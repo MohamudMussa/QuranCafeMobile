@@ -10,10 +10,7 @@ import OnboardingBackground from '../../../assets/images/onboarding1-bg.png';
 
 const StayConnected = ({onPress}) => {
   return (
-    <ImageBackground
-      source={OnboardingBackground}
-      style={OnboardingStyles.pageContainer}
-      imageStyle={styles.onboardingBgImageStyle}>
+    <View style={OnboardingStyles.pageContainer}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Stay Connected</Text>
         <Image
@@ -36,7 +33,7 @@ const StayConnected = ({onPress}) => {
         </View>
         <OnboardingStep step={1} />
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -46,12 +43,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  ayahContainer: {
+    marginTop: 20,
+  },
   ayahText: {
-    fontFamily: fonts.SFProTextRegular,
+    fontFamily: fonts.ConsolasBold,
     fontSize: 14,
-    fontWeight: '400',
-    color: colors.Black,
-    width: '95%',
+    fontWeight: '700',
+    color: colors.White,
+    width: '85%',
     textAlign: 'center',
     alignSelf: 'center',
     lineHeight: 24,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     transform: [{rotate: '130 deg'}],
   },
   imageStyle: {
-    top: -25,
+    top: 30,
     zIndex: -1,
   },
 });

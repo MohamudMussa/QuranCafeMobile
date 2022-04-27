@@ -19,13 +19,16 @@ const styles = StyleSheet.create({
     height: 55,
     justifyContent: 'center',
     marginTop: 1,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
+    borderTopColor: colors.SettingButtonBorder,
+    borderBottomColor: colors.SettingButtonBorder,
+    borderWidth: 1,
   },
   buttonTextStyle: {
     fontSize: 14,
     fontWeight: '400',
     fontFamily: fonts.PoppinsRegular,
-    color: colors.Nutral80,
+    color: colors.White,
     marginStart: 30,
   },
 });

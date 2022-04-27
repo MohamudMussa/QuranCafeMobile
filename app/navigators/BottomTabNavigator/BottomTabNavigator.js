@@ -18,8 +18,8 @@ const BottomTabNavigator = () => {
       screenOptions={({route}) => {
         return {
           gesturesEnabled: false,
-          tabBarActiveTintColor: colors.NutralBlack,
-          tabBarInactiveTintColor: colors.NutralBlack,
+          tabBarActiveTintColor: colors.White,
+          tabBarInactiveTintColor: colors.White,
           tabBarVisible: false,
           tabBarLabelStyle: {
             fontSize: 10,
@@ -27,7 +27,9 @@ const BottomTabNavigator = () => {
             fontWeight: '400',
           },
           tabBarStyle: {
+            backgroundColor: colors.Black,
             display: getTabBarVisibility(route) ? 'flex' : 'none',
+            borderTopColor: colors.Black,
           },
         };
       }}>

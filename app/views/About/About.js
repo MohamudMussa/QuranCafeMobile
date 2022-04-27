@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {openComposer} from 'react-native-email-link';
 import StackHeader from '../../components/headers/StackHeader/StackHeader';
-import LogoWithText from '../../assets/images/logo-with-text.png';
+import LogoWithText from '../../assets/images/logo.png';
 import fonts from '../../utils/fonts';
 import colors from '../../utils/colors';
 import OnboardingButton from '../../components/onboarding/OnboardingButton/OnboardingButton';
@@ -54,11 +54,11 @@ export default About;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.White,
+    backgroundColor: colors.Black,
   },
   logoStyle: {
-    width: 108,
-    height: 113,
+    width: 129,
+    height: 141,
     marginTop: 40,
     alignSelf: 'center',
     marginBottom: 30,
@@ -66,14 +66,14 @@ const styles = StyleSheet.create({
   textContainer: {
     width: '85%',
     alignSelf: 'center',
-    marginTop: 30,
+    marginTop: 20,
   },
   text: {
-    fontFamily: fonts.CourierPrimeRegular,
+    fontFamily: fonts.ConsolasRegular,
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 18.4,
-    color: colors.Ecstasy,
+    color: colors.White,
   },
   text2: {
     marginTop: 25,

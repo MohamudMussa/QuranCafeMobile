@@ -11,6 +11,11 @@ const colors = {
   Nurtral40: '#B8B8C7',
   blonde: '#FC8C3B',
   Silver: '#C1C1C1',
+  Silver2: '#BDBDBD',
+  LightOrange: '#EAB895',
+  BlackShade: '#292929',
+  GrayShade: '#5F5F5F',
+  SettingButtonBorder: '#151515',
 };
 
 export default colors;

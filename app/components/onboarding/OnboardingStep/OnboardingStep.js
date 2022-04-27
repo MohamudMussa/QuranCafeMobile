@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     width: step === current ? 24 : 6,
     borderRadius: 3,
     height: 6,
-    backgroundColor: step === current ? colors.Ecstasy : colors.LightGrey,
+    backgroundColor: step === current ? colors.Ecstasy : colors.White,
     marginHorizontal: 2,
   }),
 });
