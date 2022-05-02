@@ -12,7 +12,7 @@ const Recitation = () => {
 
   return (
     <ImageBackground
-      resizeMode="contain"
+      resizeMode="cover"
       source={PlayerCover}
       imageStyle={styles.backgroundImageStyle}
       style={styles.container}>
