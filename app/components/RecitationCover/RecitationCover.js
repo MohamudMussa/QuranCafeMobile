@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     height: '49.5%',
   },
   recitationCover: {
-    width: '75%',
-    height: '90%',
+    width: '65%',
+    height: '80%',
     borderRadius: 10,
   },
 });
