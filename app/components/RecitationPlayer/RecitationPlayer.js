@@ -192,11 +192,11 @@ const ReacitationPlayer = () => {
   const handleShuffle = async () => {
     try {
       const shuffledIndex = Math.floor(Math.random() * (lastIndex + 1));
-      await TrackPlayer.skip(shuffledIndex);
-      const shuffledTrack = await TrackPlayer.getTrack(shuffledIndex);
-      setCurrentTrackIndex(shuffledIndex);
-      setCurrentTrack(shuffledTrack);
+      TrackPlayer.skip(shuffledIndex);
       setCurrentTrackCover(dispatch(getCurrentTrackCover()));
+      setCurrentTrackIndex(shuffledIndex);
+      const shuffledTrack = await TrackPlayer.getTrack(shuffledIndex);
+      setCurrentTrack(shuffledTrack);
     } catch (err) {
       Alert.alert('Error!!', 'Something went wrong');
     }
@@ -208,7 +208,6 @@ const ReacitationPlayer = () => {
       <View style={styles.recitationDetail}>
         <Text style={styles.surahNameStyle}>{currentTrack?.title}</Text>
         <Text style={styles.reciterStyle}>{currentTrack?.artist}</Text>
-
       </View>
       <Slider
         style={styles.sliderStyle}

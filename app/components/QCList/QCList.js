@@ -1,14 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
-import moment from 'moment';
 import React from 'react';
 import {
-  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import AlphabetList from 'react-native-flatlist-alphabet';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 import StackHeader from '../headers/StackHeader/StackHeader';
@@ -22,24 +21,32 @@ const QCList = ({route}) => {
     navigation.goBack();
   };
 
-  const renderItem = ({item}) => {
+  const formatedData = () => {
+    return list.map(l => ({
+      value: l,
+      key: l,
+    }));
+  };
+
+  const renderItem = item => {
     return (
       <TouchableOpacity
         style={styles.listItemWrapper}
-        onPress={() => handleItemSelection(item)}>
-        <Text style={styles.listItemText}>{item}</Text>
+        onPress={() => handleItemSelection(item.value)}>
+        <Text style={styles.listItemText}>{item.value}</Text>
       </TouchableOpacity>
     );
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <StackHeader title={title} />
       <View style={styles.listWrapper}>
-        <FlatList
-          data={list}
+        <AlphabetList
+          data={formatedData()}
           renderItem={renderItem}
           removeClippedSubviews={true}
           windowSize={50}
+          indexLetterColor={colors.Ecstasy}
           keyExtractor={item => item}
         />
       </View>
@@ -50,6 +57,9 @@ const QCList = ({route}) => {
 export default QCList;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.Black,
+  },
   listWrapper: {
     marginStart: 10,
     marginTop: 20,
@@ -67,6 +77,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     fontFamily: fonts.PoppinsRegular,
-    color: colors.NutralBlack,
+    color: colors.White,
   },
 });

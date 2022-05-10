@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginTop: 10,
-    width: '85%',
+    width: '88%',
     height: '6.5%',
     backgroundColor: colors.BlackShade,
     alignItems: 'center',

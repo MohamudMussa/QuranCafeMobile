@@ -50,14 +50,16 @@ export const setUserCity = city => dispatch => {
   dispatch({type: SET_USER_CITY, payload: city});
 };
 
-export const setCityAndCountryFromStorage = () => async dispatch => {
+export const setCityAndCountryFromStorage = onSuccess => async dispatch => {
   const countryInStorage = await AsyncStorage.getItem('country');
   const cityInStorage = await AsyncStorage.getItem('city');
 
-  if (countryInStorage && cityInStorage) {
-    dispatch(getSalahTimings(countryInStorage, cityInStorage));
-  }
-
   dispatch({type: SET_USER_COUNTRY, payload: JSON.parse(countryInStorage)});
   dispatch({type: SET_USER_CITY, payload: JSON.parse(cityInStorage)});
+
+  if (countryInStorage && cityInStorage) {
+    dispatch(getSalahTimings(countryInStorage, cityInStorage, onSuccess));
+  } else {
+    onSuccess();
+  }
 };

@@ -1,4 +1,3 @@
-import focusIcon from '../assets/images/time-square.png';
 import {Bookmark, Home, Send, Setting} from 'react-native-iconly';
 
 const icons = {
@@ -17,7 +16,6 @@ export const navIcons = {
   playlist: Bookmark,
   share: Send,
   setting: Setting,
-  focus: focusIcon,
 };
 
 export default icons;

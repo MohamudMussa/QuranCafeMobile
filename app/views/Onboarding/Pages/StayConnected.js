@@ -1,16 +1,15 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import OnboardingStyles from '../styles';
 import Quran from '../../../assets/images/quran1.png';
 import fonts from '../../../utils/fonts';
 import colors from '../../../utils/colors';
 import OnboardingButton from '../../../components/onboarding/OnboardingButton/OnboardingButton';
 import OnboardingStep from '../../../components/onboarding/OnboardingStep/OnboardingStep';
-import OnboardingBackground from '../../../assets/images/onboarding1-bg.png';
 
 const StayConnected = ({onPress}) => {
   return (
-    <View style={OnboardingStyles.pageContainer}>
+    <SafeAreaView style={OnboardingStyles.pageContainer}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Stay Connected</Text>
         <Image
@@ -33,7 +32,7 @@ const StayConnected = ({onPress}) => {
         </View>
         <OnboardingStep step={1} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   actionStyle: {
-    marginBottom: 35,
+    marginBottom: 5,
   },
   actionButton: {
     marginBottom: 20,
@@ -70,7 +69,9 @@ const styles = StyleSheet.create({
     transform: [{rotate: '130 deg'}],
   },
   imageStyle: {
-    top: 30,
+    top: 10,
     zIndex: -1,
+    width: 322,
+    height: '60%',
   },
 });
