@@ -18,7 +18,7 @@ const SalahTime = () => {
     }
     const interval = setInterval(() => {
       setTime(dispatch(getNextSalahTiming()));
-    }, 60000);
+    }, 1);
 
     return () => {
       clearInterval(interval);
@@ -33,7 +33,7 @@ const SalahTime = () => {
         <Text
           style={
             styles.textStyle
-          }>{`${time.salahTime} - left until ${time.salahTimeName}`}</Text>
+          }>{`${time.salahTime} until ${time.salahTimeName}`}</Text>
       </View>
       <View style={styles.squareIcon}>
         <FontIcon size={20} color={colors.Silver2} icon={icons.SquareXMark} />
@@ -69,12 +69,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: fonts.ConsolasRegular,
     color: colors.White,
-    marginStart: 16,
+    marginStart: 30,
   },
   warningBoxStyle: {
     width: 24,
     height: 24,
     marginStart: 16,
+    
   },
   left: {
     flexDirection: 'row',
