@@ -1,9 +1,8 @@
 import React from 'react';
-import {Image, SafeAreaView, Share, StyleSheet, View} from 'react-native';
+import {SafeAreaView, Share, StyleSheet, View} from 'react-native';
 import StackHeader from '../../components/headers/StackHeader/StackHeader';
 import SettingsButton from '../../components/SettingsButton/SettingsButton';
 import colors from '../../utils/colors';
-import LogoWithText from '../../assets/images/logo-with-text.png';
 import routes from '../../utils/routes';
 
 const Setting = ({navigation}) => {
@@ -30,13 +29,6 @@ const Setting = ({navigation}) => {
             onPress={() => navigation.navigate(routes.AboutScreen)}
           />
         </View>
-      </View>
-      <View style={styles.footer}>
-        <Image
-          source={LogoWithText}
-          resizeMode="contain"
-          style={styles.logoStyle}
-        />
       </View>
     </SafeAreaView>
   );

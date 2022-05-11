@@ -40,12 +40,11 @@ export const getAllRecitations = onSuccess => async dispatch => {
     });
 };
 
-export const getImagesListFromStorage = onSuccess => async dispatch => {
+export const getImagesListFromStorage = () => async dispatch => {
   const unParseList = await AsyncStorage.getItem('image_list');
   const parsedList = JSON.parse(unParseList);
   if (parsedList && parsedList.length > 0) {
     dispatch({type: GET_IMAGE_LIST.SUCCESS, payload: parsedList});
-    return onSuccess();
   }
 
   const {data, error} = await supabaseClient.storage.from('images').list();
@@ -53,7 +52,6 @@ export const getImagesListFromStorage = onSuccess => async dispatch => {
     const nameListData = data.map(d => d.name);
     saveValue('image_list', JSON.stringify(nameListData));
     dispatch({type: GET_IMAGE_LIST.SUCCESS, payload: nameListData});
-    return onSuccess();
   }
 
   if (error) {

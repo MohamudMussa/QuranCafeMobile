@@ -1,16 +1,15 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import OnboardingStyles from '../styles';
 import Quran from '../../../assets/images/quran3.png';
 import fonts from '../../../utils/fonts';
 import colors from '../../../utils/colors';
 import OnboardingButton from '../../../components/onboarding/OnboardingButton/OnboardingButton';
 import OnboardingStep from '../../../components/onboarding/OnboardingStep/OnboardingStep';
-import OnboardingBackground from '../../../assets/images/onboarding3-bg.png';
 
 const FoodForSoul = ({onPress}) => {
   return (
-    <View style={OnboardingStyles.pageContainer}>
+    <SafeAreaView style={OnboardingStyles.pageContainer}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Food for the soul</Text>
         <Image
@@ -37,7 +36,7 @@ const FoodForSoul = ({onPress}) => {
         </View>
         <OnboardingStep step={3} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   actionStyle: {
-    marginBottom: 40,
+    marginBottom: 5,
   },
   actionButton: {
     marginBottom: 28,
@@ -89,5 +88,6 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     marginTop: 20,
+    height: '45%',
   },
 });

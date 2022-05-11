@@ -4,7 +4,7 @@ import Check from '../../assets/images/check.png';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 
-const PickerInput = ({placeholder, text, onPress, disabled}) => {
+const PickerInput = ({placeholder, text, onPress, disabled, style}) => {
   return (
     <TouchableOpacity
       style={styles.container}

@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: fonts.ConsolasBold,
     fontWeight: '700',
-    marginTop: 60,
     textAlign: 'center',
+    marginBottom: 10,
     color: colors.White,
   },
   imageStyle: {

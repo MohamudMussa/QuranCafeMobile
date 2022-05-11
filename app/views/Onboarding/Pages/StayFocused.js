@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
-  ImageBackground,
+  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -24,11 +24,11 @@ import PickerInput from '../../../components/PickerInput/PickerInput';
 import routes from '../../../utils/routes';
 import {useNavigation} from '@react-navigation/core';
 import {getSalahTimings} from '../../../store/actions/salahAction/salahActions';
-import OnboardingBackground from '../../../assets/images/onboarding2-bg.png';
 
 const StayFocused = ({onPress}) => {
   const [city, setCity] = useState();
   const [country, setCountry] = useState();
+  const [showLoader, setShowLoader] = useState(false);
   const dispatch = useDispatch();
   const {countries, cities, loading} = useSelector(state => state.settings);
   const navigation = useNavigation();
@@ -49,12 +49,17 @@ const StayFocused = ({onPress}) => {
   };
 
   const handleNext = () => {
-    dispatch(getSalahTimings(city, country));
+    setShowLoader(true);
+    dispatch(getSalahTimings(city, country, salahTimingSet));
+  };
+
+  const salahTimingSet = () => {
+    setShowLoader(false);
     onPress();
   };
 
   return (
-    <View style={OnboardingStyles.pageContainer}>
+    <SafeAreaView style={OnboardingStyles.pageContainer}>
       <View>
         <Text style={OnboardingStyles.titleStyle}>Stay Focused</Text>
         <Image
@@ -111,11 +116,11 @@ const StayFocused = ({onPress}) => {
         <OnboardingStep step={2} />
       </View>
       <ActivityIndicator
-        animating={loading}
+        animating={loading || showLoader}
         size="large"
         style={styles.loaderStyle}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   actionStyle: {
-    marginBottom: 40,
+    marginBottom: 5,
     zIndex: 9,
   },
   actionButton: {
@@ -168,5 +173,6 @@ const styles = StyleSheet.create({
   },
   quranImageStyle: {
     marginTop: 20,
+    height: '40%',
   },
 });

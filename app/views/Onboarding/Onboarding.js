@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {View} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import {saveValue} from '../../storage/localStorage';
 import routes from '../../utils/routes';

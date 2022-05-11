@@ -14,15 +14,15 @@ import {getImagesListFromStorage} from '../../store/actions/recitationsAction/re
 import {setCityAndCountryFromStorage} from '../../store/actions/settingsAction/settingsAction';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
-import SplashQuran from '../../assets/images/splash-quran.png';
+import SplashQuran from '../../assets/images/quran1.png';
 import SplashStars from '../../assets/images/stars.png';
 
 const SplashScreen = ({setAppReady, setIsOnboarded}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getImagesListFromStorage(onSuccess));
-    dispatch(setCityAndCountryFromStorage());
+    dispatch(getImagesListFromStorage());
+    dispatch(setCityAndCountryFromStorage(onSuccess));
     (async () => {
       await checkIsOnboarded();
     })();
