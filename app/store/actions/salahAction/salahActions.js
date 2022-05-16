@@ -9,7 +9,7 @@ export const getSalahTimings =
     const {userCity, userCountry} = getState().settings;
     const location = {
       city: city ? city : userCity,
-      userCountry: country ? country : userCountry,
+      country: country ? country : userCountry,
     };
 
     dispatch({type: GET_SALAH_TIMINGS.REQUEST});

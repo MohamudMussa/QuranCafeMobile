@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Provider} from 'react-redux';
 import AppNavigator from './app/navigators/AppNavigator/AppNavigator';
@@ -24,6 +24,8 @@ import {
   faSquareXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import {faHeart} from '@fortawesome/free-regular-svg-icons';
+import NetInfo from '@react-native-community/netinfo';
+import Snackbar from 'react-native-snackbar';
 
 library.add(
   faPlay,
@@ -40,6 +42,24 @@ library.add(
 const App = () => {
   const [appReady, setAppReady] = useState(false);
   const [isOnboarded, setIsOnboarded] = useState(false);
+  const [isConnected, setIsConnected] = useState();
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+      if (!state.isConnected) {
+        Snackbar.show({
+          text: 'No Internet Connection',
+          duration: Snackbar.LENGTH_INDEFINITE,
+        });
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <Provider store={store}>
       {appReady ? (
@@ -48,6 +68,7 @@ const App = () => {
         <SplashScreen
           setAppReady={setAppReady}
           setIsOnboarded={setIsOnboarded}
+          isConnected={isConnected}
         />
       )}
     </Provider>
