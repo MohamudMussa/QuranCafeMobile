@@ -17,17 +17,19 @@ import fonts from '../../utils/fonts';
 import SplashQuran from '../../assets/images/quran1.png';
 import SplashStars from '../../assets/images/stars.png';
 
-const SplashScreen = ({setAppReady, setIsOnboarded}) => {
+const SplashScreen = ({setAppReady, setIsOnboarded, isConnected}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getImagesListFromStorage());
-    dispatch(setCityAndCountryFromStorage(onSuccess));
-    (async () => {
-      await checkIsOnboarded();
-    })();
+    if (isConnected) {
+      dispatch(getImagesListFromStorage());
+      dispatch(setCityAndCountryFromStorage(onSuccess));
+      (async () => {
+        await checkIsOnboarded();
+      })();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, isConnected]);
 
   const checkIsOnboarded = async () => {
     const isOnboarded = await AsyncStorage.getItem('isOnboarded');
@@ -68,7 +70,7 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
         style={styles.topStarsStyle}
       />
       <ActivityIndicator
-        animating={true}
+        animating={isConnected}
         style={styles.loader}
         size="large"
         color={colors.White}
@@ -148,5 +150,37 @@ const styles = StyleSheet.create({
     color: colors.White,
     fontWeight: '700',
     textAlign: 'center',
+    fontFamily: fonts.ConsolasBold,
+    marginTop: '4%'
+
+  },
+  netInfoContainer: {
+    width: '80%',
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  netInfoText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FF2400',
+    fontFamily: fonts.ConsolasBold,
+  },
+  netInfoButton: {
+    width: 80,
+    height: 35,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FF2400',
+    marginTop: 8,
+    borderRadius: 20,
+  },
+  netInfoButtonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.White,
   },
 });

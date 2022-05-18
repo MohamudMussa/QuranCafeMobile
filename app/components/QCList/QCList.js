@@ -1,52 +1,61 @@
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import AlphabetList from 'react-native-flatlist-alphabet';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
-import StackHeader from '../headers/StackHeader/StackHeader';
+import StackSearchHeader from '../headers/StackSearchHeader/StackSearchHeader';
 
 const QCList = ({route}) => {
+  const [searchText, setSearchText] = useState('');
+  const [listData, setListData] = useState();
   const navigation = useNavigation();
-  const {title, list, onSelect} = route.params;
+  const {list, onSelect} = route.params;
+
+  useEffect(() => {
+    setListData(list);
+  }, [list]);
 
   const handleItemSelection = item => {
     onSelect(item);
     navigation.goBack();
   };
 
-  const formatedData = () => {
-    return list.map(l => ({
-      value: l,
-      key: l,
-    }));
-  };
-
-  const renderItem = item => {
+  const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.listItemWrapper}
-        onPress={() => handleItemSelection(item.value)}>
-        <Text style={styles.listItemText}>{item.value}</Text>
+        onPress={() => handleItemSelection(item)}>
+        <Text style={styles.listItemText}>{item}</Text>
       </TouchableOpacity>
     );
   };
+
+  const handleSearch = text => {
+    const filteredList = list.filter(c => c.includes(text));
+    setSearchText(text);
+    setListData(filteredList);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <StackHeader title={title} />
+      <StackSearchHeader
+        placeholder="Search Here..."
+        onChange={handleSearch}
+        value={searchText}
+      />
       <View style={styles.listWrapper}>
-        <AlphabetList
-          data={formatedData()}
+        <FlatList
+          data={listData}
           renderItem={renderItem}
           removeClippedSubviews={true}
           windowSize={50}
-          indexLetterColor={colors.Ecstasy}
           keyExtractor={item => item}
         />
       </View>
@@ -58,6 +67,7 @@ export default QCList;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: colors.Black,
   },
   listWrapper: {

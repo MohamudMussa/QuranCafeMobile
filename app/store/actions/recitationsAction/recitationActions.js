@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {saveValue} from '../../../storage/localStorage';
 import {supabaseClient} from '../../../superbase/init';
+import {shuffle} from '../../../utils/utilities';
 import {GET_ALL_RECITATIONS, GET_IMAGE_LIST} from './Types';
 
 export const getAllRecitations = onSuccess => async dispatch => {
@@ -28,10 +29,11 @@ export const getAllRecitations = onSuccess => async dispatch => {
           isLiked: likedRecitations.includes(track?.recitation_id),
           upvote: track.up_vote,
         }));
-        onSuccess(formattedTrackData);
+        const shuffledTrack = shuffle(formattedTrackData);
+        onSuccess(shuffledTrack);
         dispatch({
           type: GET_ALL_RECITATIONS.SUCCESS,
-          payload: formattedTrackData,
+          payload: shuffledTrack,
         });
       }
     })

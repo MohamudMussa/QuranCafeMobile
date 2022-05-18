@@ -63,7 +63,7 @@ export default RecitationPlayerAction;
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: '90%',
     height: '10.8%',
     backgroundColor: colors.Ecstasy,
     borderRadius: 24,

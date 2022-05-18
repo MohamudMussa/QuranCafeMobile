@@ -1,7 +1,7 @@
 const colors = {
   Ecstasy: '#F57011',
   ThemeRed: '#FF6C6C',
-  White: '#FFFFFF',
+  White: '#ECE6C2',
   Black: '#000000',
   NutralBlack: '#010104',
   Nutral80: '#2E2E5D',

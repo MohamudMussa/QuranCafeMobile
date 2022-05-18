@@ -62,7 +62,7 @@ const ReacitationPlayer = () => {
     return () => {
       TrackPlayer.destroy();
     };
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (!isSeeking && position && duration) {
@@ -93,9 +93,7 @@ const ReacitationPlayer = () => {
       TrackPlayer.setRepeatMode(RepeatMode.Off);
     });
     setLastIndex(tracks.length - 1);
-    const shuffledIndex = Math.floor(Math.random() * tracks.length);
-    setCurrentTrackIndex(shuffledIndex);
-    setCurrentTrack(tracks[shuffledIndex]);
+    setCurrentTrack(tracks[0]);
   };
 
   const handlePlay = () => {
@@ -268,13 +266,13 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   sliderStyle: {
-    width: '80%',
+    width: '90%',
     height: 2,
     alignSelf: 'center',
     marginTop: 37,
   },
   timeContainer: {
-    width: '80%',
+    width: '90%',
     height: 15,
     alignSelf: 'center',
     flexDirection: 'row',
