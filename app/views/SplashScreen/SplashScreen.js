@@ -150,6 +150,9 @@ const styles = StyleSheet.create({
     color: colors.White,
     fontWeight: '700',
     textAlign: 'center',
+    fontFamily: fonts.ConsolasBold,
+    marginTop: '4%'
+
   },
   netInfoContainer: {
     width: '80%',
@@ -163,7 +166,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#FF2400',
-    fontFamily: fonts.PoppinsRegular,
+    fontFamily: fonts.ConsolasBold,
   },
   netInfoButton: {
     width: 80,

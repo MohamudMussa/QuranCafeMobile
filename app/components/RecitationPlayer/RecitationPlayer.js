@@ -266,13 +266,13 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   sliderStyle: {
-    width: '80%',
+    width: '90%',
     height: 2,
     alignSelf: 'center',
     marginTop: 37,
   },
   timeContainer: {
-    width: '80%',
+    width: '90%',
     height: 15,
     alignSelf: 'center',
     flexDirection: 'row',

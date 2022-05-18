@@ -18,7 +18,7 @@ const RecitationPlayerButton = ({
       disabled={disable}>
       <FontIcon
         icon={icon}
-        size={20}
+        size={21}
         color={isOnLoop || isLiked ? colors.Black : colors.White}
         type={fontType}
       />
