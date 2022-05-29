@@ -16,14 +16,6 @@ const SalahTime = () => {
     if (!time?.salahTime) {
       setTime(dispatch(getNextSalahTiming()));
     }
-    const interval = setInterval(() => {
-      setTime(dispatch(getNextSalahTiming()));
-    }, 1);
-
-    return () => {
-      clearInterval(interval);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (

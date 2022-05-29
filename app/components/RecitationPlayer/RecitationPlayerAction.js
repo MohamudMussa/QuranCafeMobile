@@ -15,13 +15,14 @@ const RecitationPlayerAction = ({
   onRepeat,
   isOnLoop,
   isLiked,
+  hasPrevTrack,
 }) => {
   return (
     <View style={styles.container}>
       <RecitationPlayerButton
         icon={icons.ArrowLeftIcon}
         onPress={onPrevious}
-        disable={disable}
+        disable={!hasPrevTrack || disable}
       />
       <RecitationPlayerButton
         icon={icons.loopIcon}

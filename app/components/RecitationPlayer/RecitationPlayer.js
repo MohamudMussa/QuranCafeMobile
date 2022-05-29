@@ -25,6 +25,7 @@ const ReacitationPlayer = () => {
   const dispatch = useDispatch();
 
   const [currentTrack, setCurrentTrack] = useState();
+  const [prevTrackIndex, setPrevTrackIndex] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [sliderValue, setSliderValue] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -93,6 +94,7 @@ const ReacitationPlayer = () => {
       TrackPlayer.setRepeatMode(RepeatMode.Off);
     });
     setLastIndex(tracks.length - 1);
+    setCurrentTrackIndex(0);
     setCurrentTrack(tracks[0]);
   };
 
@@ -133,18 +135,11 @@ const ReacitationPlayer = () => {
   };
 
   const handlePrevious = async () => {
-    TrackPlayer.skipToPrevious().catch(error => {
-      Alert.alert('Error!!', 'Something went wrong');
-    });
-
-    if (currentTrackIndex === 0) {
-      setCurrentTrack(lastIndex);
-      return;
-    }
-
-    const previousTrack = await TrackPlayer.getTrack(currentTrackIndex - 1);
-    setCurrentTrack(previousTrack);
+    TrackPlayer.skip(prevTrackIndex);
     setCurrentTrackCover(dispatch(getCurrentTrackCover()));
+    setCurrentTrackIndex(prevTrackIndex);
+    const prevTrack = await TrackPlayer.getTrack(prevTrackIndex);
+    setCurrentTrack(prevTrack);
   };
   const handleThumbsUp = () => {
     thumbsUpRecitation(
@@ -192,6 +187,7 @@ const ReacitationPlayer = () => {
       const shuffledIndex = Math.floor(Math.random() * (lastIndex + 1));
       TrackPlayer.skip(shuffledIndex);
       setCurrentTrackCover(dispatch(getCurrentTrackCover()));
+      setPrevTrackIndex(currentTrackIndex);
       setCurrentTrackIndex(shuffledIndex);
       const shuffledTrack = await TrackPlayer.getTrack(shuffledIndex);
       setCurrentTrack(shuffledTrack);
@@ -230,6 +226,7 @@ const ReacitationPlayer = () => {
         isPlaying={isPlaying}
         isLiked={currentTrack?.isLiked}
         recitationId={currentTrack?.recitation_id}
+        hasPrevTrack={!!prevTrackIndex}
         onPlay={handlePlay}
         onPause={handlePause}
         onSeek={handleSeek}

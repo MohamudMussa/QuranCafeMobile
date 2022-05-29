@@ -48,7 +48,7 @@ const SplashScreen = ({setAppReady, setIsOnboarded, isConnected}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={Logo} style={styles.logoStyle} />
+      <Image resizeMode="contain" source={Logo} style={styles.logoStyle} />
       <Text style={styles.appTitleStyle}>Quran Cafe</Text>
       <View style={styles.splashBgStyle}>
         <View>
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     fontFamily: fonts.ConsolasBold,
-    marginTop: '4%'
+    marginTop: '4%',
 
   },
   netInfoContainer: {
