@@ -16,9 +16,11 @@ import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 import SplashQuran from '../../assets/images/quran1.png';
 import SplashStars from '../../assets/images/stars.png';
+import {useIsConnected} from 'react-native-offline';
 
-const SplashScreen = ({setAppReady, setIsOnboarded, isConnected}) => {
+const SplashScreen = ({setAppReady, setIsOnboarded}) => {
   const dispatch = useDispatch();
+  const isConnected = useIsConnected();
 
   useEffect(() => {
     if (isConnected) {
@@ -152,7 +154,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.ConsolasBold,
     marginTop: '4%',
-
   },
   netInfoContainer: {
     width: '80%',
