@@ -24,8 +24,7 @@ import {
   faSquareXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import {faHeart} from '@fortawesome/free-regular-svg-icons';
-import NetInfo from '@react-native-community/netinfo';
-import Snackbar from 'react-native-snackbar';
+import {NetworkProvider} from 'react-native-offline';
 
 library.add(
   faPlay,
@@ -42,35 +41,19 @@ library.add(
 const App = () => {
   const [appReady, setAppReady] = useState(false);
   const [isOnboarded, setIsOnboarded] = useState(false);
-  const [isConnected, setIsConnected] = useState();
-
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(state => {
-      setIsConnected(state.isConnected);
-      if (!state.isConnected) {
-        Snackbar.show({
-          text: 'No Internet Connection',
-          duration: Snackbar.LENGTH_INDEFINITE,
-        });
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
 
   return (
     <Provider store={store}>
-      {appReady ? (
-        <AppNavigator onboarded={isOnboarded} />
-      ) : (
-        <SplashScreen
-          setAppReady={setAppReady}
-          setIsOnboarded={setIsOnboarded}
-          isConnected={isConnected}
-        />
-      )}
+      <NetworkProvider>
+        {appReady ? (
+          <AppNavigator onboarded={isOnboarded} />
+        ) : (
+          <SplashScreen
+            setAppReady={setAppReady}
+            setIsOnboarded={setIsOnboarded}
+          />
+        )}
+      </NetworkProvider>
     </Provider>
   );
 };
