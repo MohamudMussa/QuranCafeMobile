@@ -16,22 +16,19 @@ import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 import SplashQuran from '../../assets/images/quran1.png';
 import SplashStars from '../../assets/images/stars.png';
-import {useIsConnected} from 'react-native-offline';
 
 const SplashScreen = ({setAppReady, setIsOnboarded}) => {
   const dispatch = useDispatch();
-  const isConnected = useIsConnected();
+  // const isConnected = useIsConnected();
 
   useEffect(() => {
-    if (isConnected) {
-      dispatch(getImagesListFromStorage());
-      dispatch(setCityAndCountryFromStorage(onSuccess));
-      (async () => {
-        await checkIsOnboarded();
-      })();
-    }
+    dispatch(getImagesListFromStorage());
+    dispatch(setCityAndCountryFromStorage(onSuccess));
+    (async () => {
+      await checkIsOnboarded();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, isConnected]);
+  }, [dispatch]);
 
   const checkIsOnboarded = async () => {
     const isOnboarded = await AsyncStorage.getItem('isOnboarded');
@@ -72,7 +69,7 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
         style={styles.topStarsStyle}
       />
       <ActivityIndicator
-        animating={isConnected}
+        animating={true}
         style={styles.loader}
         size="large"
         color={colors.White}
