@@ -13,24 +13,36 @@ const SalahTime = () => {
   const [time, setTime] = useState({});
 
   useEffect(() => {
-    if (!time?.salahTime) {
+    const interval = setInterval(() => {
       setTime(dispatch(getNextSalahTiming()));
-    }
-  }, [dispatch]);
+    }, 10000);
 
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+  
   return (
-    <View style={styles.container}>
-      <View style={styles.left}>
-        <Image source={WarningBox} style={styles.warningBoxStyle} />
-        <Text
-          style={
-            styles.textStyle
-          }>{`${time.salahTime} until ${time.salahTimeName}`}</Text>
-      </View>
-      <View style={styles.squareIcon}>
-        <FontIcon size={20} color={colors.Silver2} icon={icons.SquareXMark} />
-      </View>
-    </View>
+    <>
+      {Object.keys(time)?.length === 0 ? null : (
+        <View style={styles.container}>
+          <View style={styles.left}>
+            <Image source={WarningBox} style={styles.warningBoxStyle} />
+            <Text
+              style={
+                styles.textStyle
+              }>{`${time.salahTime} until ${time.salahTimeName}`}</Text>
+          </View>
+          <View style={styles.squareIcon}>
+            <FontIcon
+              size={20}
+              color={colors.Silver2}
+              icon={icons.SquareXMark}
+            />
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -67,7 +79,6 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     marginStart: 16,
-    
   },
   left: {
     flexDirection: 'row',

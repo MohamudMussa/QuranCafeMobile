@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import {recitationReducer} from './reducers/recitationReducer';
 import salahReducer from './reducers/salahReducer';
 import settingsReducer from './reducers/settingsReducer';
+import playListReducer from './reducers/playListReducer';
 
 const rootReducer = combineReducers({
   recitations: recitationReducer,
   salah: salahReducer,
   settings: settingsReducer,
+  playlist: playListReducer,
   network,
 });
 

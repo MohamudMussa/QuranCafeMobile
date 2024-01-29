@@ -18,13 +18,16 @@ import {useDispatch} from 'react-redux';
 import {
   getAllRecitations,
   getCurrentTrackCover,
+  thumbsDownRecitation,
   thumbsUpRecitation,
 } from '../../store/actions/recitationsAction/recitationActions';
+import {useRoute} from '@react-navigation/native';
 
 const ReacitationPlayer = () => {
   const dispatch = useDispatch();
-
-  const [currentTrack, setCurrentTrack] = useState();
+  const {params} = useRoute();
+  //console.log(params)
+  const [currentTrack, setCurrentTrack] = useState(params?.track);
   const [prevTrackIndex, setPrevTrackIndex] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [sliderValue, setSliderValue] = useState(0);
@@ -34,8 +37,13 @@ const ReacitationPlayer = () => {
   const [playerState, setPlayerState] = useState(State.None);
   const [loop, setLoop] = useState(false);
   const [currentTrackCover, setCurrentTrackCover] = useState();
-
   const {position, duration} = useProgress();
+
+  useEffect(() => {
+    if (params) {
+      setCurrentTrack(params?.track);
+    }
+  }, [params]);
 
   // Subscribing to the events
   const events = [
@@ -144,11 +152,27 @@ const ReacitationPlayer = () => {
   const handleThumbsUp = () => {
     thumbsUpRecitation(
       currentTrack?.recitation_id,
-      currentTrack.upvote,
+      currentTrack?.upvote,
       onSuccess,
     );
   };
+  const handleThumbsDown = () => {
+    thumbsDownRecitation(
+      currentTrack?.recitation_id,
+      currentTrack?.upvote,
+      onNotSuccess,
+    );
+  };
 
+  const onNotSuccess = async () => {
+    TrackPlayer.updateMetadataForTrack(currentTrackIndex, {
+      ...currentTrack,
+      isLiked: false,
+    }).then(async () => {
+      const track = await TrackPlayer.getTrack(currentTrackIndex);
+      setCurrentTrack(track);
+    });
+  };
   const onSuccess = async () => {
     TrackPlayer.updateMetadataForTrack(currentTrackIndex, {
       ...currentTrack,
@@ -232,6 +256,7 @@ const ReacitationPlayer = () => {
         onSeek={handleSeek}
         onPrevious={handlePrevious}
         onThumbsUp={handleThumbsUp}
+        onThumbsDown={handleThumbsDown}
         onShuffle={handleShuffle}
         onRepeat={handleRepeat}
         isOnLoop={loop}

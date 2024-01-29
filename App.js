@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import {Provider} from 'react-redux';
 import AppNavigator from './app/navigators/AppNavigator/AppNavigator';

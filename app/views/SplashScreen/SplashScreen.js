@@ -29,6 +29,8 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
       (async () => {
         await checkIsOnboarded();
       })();
+    } else {
+      console.log('no internet');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, isConnected]);

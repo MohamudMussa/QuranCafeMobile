@@ -8,10 +8,14 @@ import fonts from '../../utils/fonts';
 import SettingNavigator from '../StackNavigators/SettingNavigator/SettingNavigator';
 import {getTabBarVisibility} from '../navigatorHelpers';
 import {Share} from 'react-native';
+import PlaylistNavigator from '../StackNavigators/PlaylistNavigator/PlaylistNavigator';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const ShareFunc = () => {
+    return <NavBarIcon focused={false} icon="share" size={18} />;
+  };
   return (
     <Tab.Navigator
       initialRouteName={routes.RecitationScreen}
@@ -45,8 +49,19 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
+        name={routes.PlaylistNavigator}
+        component={PlaylistNavigator}
+        options={{
+          tabBarIcon: function ({focused}) {
+            return <NavBarIcon focused={focused} icon="playlist" size={18} />;
+          },
+          tabBarLabel: 'PlayList',
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
         name={routes.Share}
-        component={() => <NavBarIcon focused={false} icon="share" size={18} />}
+        component={ShareFunc}
         options={{
           tabBarIcon: function ({focused}) {
             return <NavBarIcon focused={focused} icon="share" size={18} />;

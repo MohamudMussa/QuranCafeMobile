@@ -10,6 +10,7 @@ const RecitationPlayerAction = ({
   onPause,
   onPrevious,
   onThumbsUp,
+  onThumbsDown,
   disable,
   onShuffle,
   onRepeat,
@@ -17,6 +18,13 @@ const RecitationPlayerAction = ({
   isLiked,
   hasPrevTrack,
 }) => {
+  const thumbs = () => {
+    if (isLiked) {
+      onThumbsDown();
+    } else {
+      onThumbsUp();
+    }
+  };
   return (
     <View style={styles.container}>
       <RecitationPlayerButton
@@ -51,8 +59,8 @@ const RecitationPlayerAction = ({
       />
       <RecitationPlayerButton
         icon={icons.HeartIcon}
-        onPress={onThumbsUp}
-        disable={isLiked || disable}
+        onPress={thumbs}
+        //disable={isLiked || disable}
         fontType={isLiked ? 'fas' : 'far'}
         isLiked={isLiked}
       />

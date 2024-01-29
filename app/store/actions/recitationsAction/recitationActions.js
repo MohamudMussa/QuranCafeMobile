@@ -76,6 +76,31 @@ export const getCurrentTrackCover = () => (_, getState) => {
   return publicURL;
 };
 
+export const thumbsDownRecitation = async (
+  recitationId,
+  upvotes,
+  onSuccess,
+) => {
+  const likedRecitationsInStorage = await AsyncStorage.getItem(
+    'likedRecitations',
+  );
+  const likedRecitations = likedRecitationsInStorage
+    ? JSON.parse(likedRecitationsInStorage)
+    : [];
+  if (likedRecitations.includes(recitationId)) {
+    let index = likedRecitations.indexOf(recitationId);
+    likedRecitations.splice(index, 1);
+    saveValue('likedRecitations', JSON.stringify(likedRecitations));
+    onSuccess();
+    const {data, error} = await supabaseClient
+      .from('recitations')
+      .update({up_vote: upvotes - 1})
+      .eq('recitation_id', recitationId);
+    //setTotalTracks(likedRecitations.length);
+  } else {
+    console.log('already removed to favorite');
+  }
+};
 export const thumbsUpRecitation = async (recitationId, upvotes, onSuccess) => {
   const likedRecitationsInStorage = await AsyncStorage.getItem(
     'likedRecitations',
@@ -84,14 +109,28 @@ export const thumbsUpRecitation = async (recitationId, upvotes, onSuccess) => {
     .from('recitations')
     .update({up_vote: upvotes + 1})
     .eq('recitation_id', recitationId);
+  const likedRecitations = likedRecitationsInStorage
+    ? JSON.parse(likedRecitationsInStorage)
+    : [];
+  if (!likedRecitations.includes(recitationId)) {
+    // if it doesn't exist
+    likedRecitations.push(recitationId);
+    saveValue('likedRecitations', JSON.stringify(likedRecitations));
+    onSuccess();
+  } else {
+    console.log('already added to favorite');
+  }
+  /*
   if (data) {
+    console.log('data', data);
     const likedRecitations = likedRecitationsInStorage
       ? JSON.parse(likedRecitationsInStorage)
       : [];
     likedRecitations.push(recitationId);
     saveValue('likedRecitations', JSON.stringify(likedRecitations));
-    onSuccess();
-  }
+    //onSuccess();
+  }*/
+
   if (error) {
     console.log('error while updating upvote::', error);
   }

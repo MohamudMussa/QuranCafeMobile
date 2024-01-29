@@ -5,7 +5,7 @@ import ReacitationPlayer from '../../components/RecitationPlayer/RecitationPlaye
 import SalahTime from '../../components/SalahTime/SalahTime';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
-import PlayerCover from '../../assets/images/player-cover.png';
+import PlayerCover from '../../assets/images/player-cover.jpeg';
 
 const Recitation = () => {
   const {hijriDate} = useSelector(state => state.salah);

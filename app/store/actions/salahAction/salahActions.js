@@ -68,9 +68,14 @@ export const getNextSalahTiming = () => (_, store) => {
     salahTime = Moment.duration(
       Moment(nextTime.split(' ')[0], 'HH:mm').diff(Moment(timeNow, 'HH:mm')),
     );
-    const humanizeSalah = Moment.utc(
+    let HHMMformat = Moment.utc(
       Moment.duration(salahTime, 'seconds').asMilliseconds(),
     ).format('h [hrs] m [min]');
+    let MMformat = Moment.utc(
+      Moment.duration(salahTime, 'seconds').asMilliseconds(),
+    ).format('m [min]');
+    
+    const humanizeSalah = salahTime.hours() < 1 ? MMformat : HHMMformat;
     return {salahTimeName, salahTime: humanizeSalah};
   }
   nextTime = timingsNow.Fajr;
