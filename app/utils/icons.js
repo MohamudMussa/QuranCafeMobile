@@ -1,4 +1,4 @@
-import {Bookmark, Home, Send, Setting} from 'react-native-iconly';
+import {Bookmark, Home, Send, Setting, Heart} from 'react-native-iconly';
 
 const icons = {
   PlayIcon: 'play',
@@ -16,6 +16,7 @@ export const navIcons = {
   playlist: Bookmark,
   share: Send,
   setting: Setting,
+  heart: Heart,
 };
 
 export default icons;

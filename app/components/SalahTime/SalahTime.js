@@ -4,32 +4,43 @@ import {useDispatch} from 'react-redux';
 import {getNextSalahTiming} from '../../store/actions/salahAction/salahActions';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
-import WarningBox from '../../assets/images/warning-box.png';
+import WarningBox from '../../assets/images/memory_alert.png';
 import FontIcon from '../general/FontIcon/FontIcon';
 import icons from '../../utils/icons';
 
 const SalahTime = () => {
   const dispatch = useDispatch();
   const [time, setTime] = useState({});
+  const [reloadCounter, setReloadCounter] = useState(0);
 
+  // useEffect(() => {
+  //   if (!time?.salahTime) {
+  //     setTime(dispatch(getNextSalahTiming()));
+  //   }
+  // }, [dispatch]);
   useEffect(() => {
-    if (!time?.salahTime) {
+    const fetchSalahTiming = () => {
       setTime(dispatch(getNextSalahTiming()));
-    }
+      console.log('fetched time again ');
+    };
+
+    // Fetch initial Sala h timing
+    fetchSalahTiming();
+
+    // Fetch Salah timing every 20 seconds
+    const interval = setInterval(fetchSalahTiming, 10000);
+
+    // Cleanup function to clear interval on component unmount
+    return () => clearInterval(interval);
   }, [dispatch]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.left}>
-        <Image source={WarningBox} style={styles.warningBoxStyle} />
-        <Text
-          style={
-            styles.textStyle
-          }>{`${time.salahTime} until ${time.salahTimeName}`}</Text>
-      </View>
-      <View style={styles.squareIcon}>
-        <FontIcon size={20} color={colors.Silver2} icon={icons.SquareXMark} />
-      </View>
+      <Image source={WarningBox} style={styles.warningBoxStyle} />
+      <Text
+        style={
+          styles.textStyle
+        }>{`${time?.salahTime} Until ${time?.salahTimeName}`}</Text>
     </View>
   );
 };
@@ -39,12 +50,10 @@ export default SalahTime;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop: 10,
-    width: '88%',
-    height: '6.5%',
-    backgroundColor: colors.BlackShade,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    backgroundColor: '#C6AE8A',
+    borderRadius: 11,
     alignSelf: 'center',
     shadowColor: colors.Black,
     shadowOffset: {
@@ -56,24 +65,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textStyle: {
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 18,
     fontWeight: '500',
-    fontFamily: fonts.ConsolasRegular,
-    color: colors.White,
-    marginStart: 30,
+    fontFamily: fonts.CourierPrimeRegular,
+    color: colors.Black,
+    marginStart: 10,
   },
   warningBoxStyle: {
-    width: 24,
-    height: 24,
-    marginStart: 16,
-    
-  },
-  left: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  squareIcon: {
-    marginRight: 16,
+    width: 20,
+    height: 20,
+    // marginStart: 16,
   },
 });

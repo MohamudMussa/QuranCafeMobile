@@ -35,8 +35,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app accesses your Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>The app accesses your Location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Medium.ttf</string>

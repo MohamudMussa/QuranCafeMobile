@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     marginBottom: 10,
-    color: colors.White,
+    color: '#FFFFFF',
   },
   imageStyle: {
     width: '90%',

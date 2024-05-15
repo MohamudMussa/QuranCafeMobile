@@ -76,19 +76,39 @@ export const getCurrentTrackCover = () => (_, getState) => {
   return publicURL;
 };
 
-export const thumbsUpRecitation = async (recitationId, upvotes, onSuccess) => {
+export const thumbsUpRecitation = async (
+  // recitationId,
+  // upvotes,
+  currentTrack,
+  // currentTrack?.recitation_id,
+  //     currentTrack?.title,
+  //     currentTrack?.url,
+  //     currentTrack?.artist,
+  //     currentTrack.upvote,
+  //     currentTrack?.isLiked,
+  onSuccess,
+) => {
   const likedRecitationsInStorage = await AsyncStorage.getItem(
     'likedRecitations',
   );
+
   const {data, error} = await supabaseClient
     .from('recitations')
-    .update({up_vote: upvotes + 1})
-    .eq('recitation_id', recitationId);
+    .update({up_vote: currentTrack.upvote + 1})
+    .eq('recitation_id', currentTrack?.recitation_id);
+  // console.log('Fetched recitations ====== ', data);
   if (data) {
     const likedRecitations = likedRecitationsInStorage
       ? JSON.parse(likedRecitationsInStorage)
       : [];
-    likedRecitations.push(recitationId);
+    likedRecitations.push({
+      recitation_id: currentTrack?.recitation_id,
+      title: currentTrack?.title,
+      mp3: currentTrack?.url,
+      artist: currentTrack?.artist,
+      isLiked: true,
+    });
+    console.log('Saved Recitations in local====', likedRecitations);
     saveValue('likedRecitations', JSON.stringify(likedRecitations));
     onSuccess();
   }

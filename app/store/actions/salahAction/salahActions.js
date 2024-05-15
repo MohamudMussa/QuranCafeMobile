@@ -34,12 +34,71 @@ export const getSalahTimings =
       });
   };
 
+// const getKeyByValue = (object, value) => {
+//   return Object.keys(object).find(key => object[key] === value);
+// };
+
+// export const getNextSalahTiming = () => (_, store) => {
+//   const timings = store().salah?.timings;
+//   console.log('timings====in getNextSalahTiming===', timings.length);
+//   let salahTimeName = 'Fajr';
+//   let salahTime;
+//   const onlyPrayersTimings = timings.map(t => {
+//     const time = t;
+//     delete time.Sunrise;
+//     delete time.Sunset;
+//     delete time.Imsak;
+//     delete time.Midnight;
+//     return time;
+//   });
+//   console.log('onlyPrayersTimings=====', onlyPrayersTimings);
+//   const nowDay = Moment().format('DD');
+//   const timeNow = Moment().format('HH:mm');
+//   console.log('nowday===', nowDay);
+//   console.log('timeNow===', timeNow);
+//   const timingsNow = Object(onlyPrayersTimings[nowDay - 1]);
+//   const timingsNowValues = Object.values(onlyPrayersTimings[nowDay - 1]);
+//   let nextTime;
+//   for (let i = 0; i < timingsNowValues.length; i++) {
+//     const current = Moment(timingsNowValues[i].split(' ')[0], 'HH:mm');
+//     if (Moment(current).isAfter(Moment(timeNow, 'HH:mm'))) {
+//       nextTime = timingsNowValues[i];
+//       break;
+//     }
+//   }
+//   if (nextTime) {
+//     salahTimeName = getKeyByValue(timingsNow, nextTime);
+//     salahTime = Moment.duration(
+//       Moment(nextTime.split(' ')[0], 'HH:mm').diff(Moment(timeNow, 'HH:mm')),
+//     );
+//     const humanizeSalah = Moment.utc(
+//       Moment.duration(salahTime, 'seconds').asMilliseconds(),
+//     ).format('h[h] m[m]');
+
+//     return {salahTimeName, salahTime: humanizeSalah};
+//   }
+//   nextTime = timingsNow.Fajr;
+//   const diffToMidNight = Moment(timeNow, 'HH:mm').diff(
+//     Moment('24:00', 'HH:mm'),
+//   );
+//   const diffAfterMidNight = Moment(nextTime.split(' ')[0], 'HH:mm').diff(
+//     Moment('01:00', 'HH:mm'),
+//   );
+//   const addedDuration = Moment.duration(diffToMidNight + diffAfterMidNight);
+
+//   salahTime = Moment.duration(addedDuration.add(1, 'hour'));
+//   const humanizeSalah = Moment.utc(
+//     Moment.duration(salahTime, 'seconds').asMilliseconds(),
+//   ).format('h[h] m[m]');
+//   return {salahTimeName, salahTime: humanizeSalah};
+// };
+
 const getKeyByValue = (object, value) => {
   return Object.keys(object).find(key => object[key] === value);
 };
-
 export const getNextSalahTiming = () => (_, store) => {
   const timings = store().salah?.timings;
+  // console.log('timings====in getNextSalahTiming===', timings.length);
   let salahTimeName = 'Fajr';
   let salahTime;
   const onlyPrayersTimings = timings.map(t => {
@@ -50,41 +109,50 @@ export const getNextSalahTiming = () => (_, store) => {
     delete time.Midnight;
     return time;
   });
+
   const nowDay = Moment().format('DD');
+  // const timeNow = '03:40';
   const timeNow = Moment().format('HH:mm');
 
-  const timingsNow = Object(onlyPrayersTimings[nowDay - 1]);
+  // console.log('nowday===', nowDay);
+  // console.log('timeNow===', timeNow);
+  const timingsNow = onlyPrayersTimings[nowDay - 1];
   const timingsNowValues = Object.values(onlyPrayersTimings[nowDay - 1]);
+  // console.log('timingsNow======', timingsNow);
+  // console.log('timingsNowValues=====', timingsNowValues);
   let nextTime;
   for (let i = 0; i < timingsNowValues.length; i++) {
     const current = Moment(timingsNowValues[i].split(' ')[0], 'HH:mm');
+    // console.log('current in for====', current);
     if (Moment(current).isAfter(Moment(timeNow, 'HH:mm'))) {
+      // console.log('timingsNowValues[i]====', timingsNowValues[i]);
       nextTime = timingsNowValues[i];
+      salahTimeName = getKeyByValue(timingsNow, nextTime);
+      salahTime = Moment.duration(
+        Moment(nextTime.split(' ')[0], 'HH:mm').diff(Moment(timeNow, 'HH:mm')),
+      );
       break;
     }
   }
-  if (nextTime) {
-    salahTimeName = getKeyByValue(timingsNow, nextTime);
-    salahTime = Moment.duration(
-      Moment(nextTime.split(' ')[0], 'HH:mm').diff(Moment(timeNow, 'HH:mm')),
-    );
-    const humanizeSalah = Moment.utc(
-      Moment.duration(salahTime, 'seconds').asMilliseconds(),
-    ).format('h [hrs] m [min]');
-    return {salahTimeName, salahTime: humanizeSalah};
-  }
-  nextTime = timingsNow.Fajr;
-  const diffToMidNight = Moment(timeNow, 'HH:mm').diff(
-    Moment('24:00', 'HH:mm'),
-  );
-  const diffAfterMidNight = Moment(nextTime.split(' ')[0], 'HH:mm').diff(
-    Moment('01:00', 'HH:mm'),
-  );
-  const addedDuration = Moment.duration(diffToMidNight + diffAfterMidNight);
+  // console.log('nextTime after for====', nextTime);
 
-  salahTime = Moment.duration(addedDuration.add(1, 'hour'));
-  const humanizeSalah = Moment.utc(
-    Moment.duration(salahTime, 'seconds').asMilliseconds(),
-  ).format('h [hrs] m [min]');
-  return {salahTimeName, salahTime: humanizeSalah};
+  if (salahTime) {
+    const humanizeSalah = salahTime.as('minutes');
+    // console.log('humanize salah=====', humanizeSalah);
+
+    if (humanizeSalah === 1) {
+      return {salahTimeName, salahTime: '0h 1m'};
+    } else if (humanizeSalah > 1 && humanizeSalah < 60) {
+      return {salahTimeName, salahTime: `${humanizeSalah}m`};
+    } else {
+      return {
+        salahTimeName,
+        salahTime: Moment.utc(salahTime.asMilliseconds()).format('h[h] m[m]'),
+      };
+    }
+  } else {
+    // Handle the case when salahTime is not defined
+    // You might want to return a default value or handle this case differently
+    return {salahTimeName, salahTime: 'Unknown'};
+  }
 };

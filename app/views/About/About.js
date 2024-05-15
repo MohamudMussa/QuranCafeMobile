@@ -1,11 +1,20 @@
 import React from 'react';
-import {Alert, Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {openComposer} from 'react-native-email-link';
 import StackHeader from '../../components/headers/StackHeader/StackHeader';
 import LogoWithText from '../../assets/images/logo.png';
 import fonts from '../../utils/fonts';
 import colors from '../../utils/colors';
 import OnboardingButton from '../../components/onboarding/OnboardingButton/OnboardingButton';
+import PlayerCover from '../../assets/images/mainCover.png';
 
 const About = () => {
   const handleOnPress = () => {
@@ -19,8 +28,16 @@ const About = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StackHeader title="About Quran Cafe" />
+    // <SafeAreaView style={styles.container}>
+    <ImageBackground
+      resizeMode="stretch"
+      source={PlayerCover}
+      imageStyle={styles.backgroundImageStyle}
+      style={styles.container}>
+      <View style={styles.headerStyle}>
+        <StackHeader title="About Quran Cafe" />
+      </View>
+
       <Image
         source={LogoWithText}
         style={styles.logoStyle}
@@ -45,7 +62,7 @@ const About = () => {
           onPress={handleOnPress}
         />
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -68,12 +85,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
   },
+  backgroundImageStyle: {
+    width: '100%',
+    height: '100%',
+  },
   text: {
     fontFamily: fonts.ConsolasRegular,
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 18.4,
-    color: colors.White,
+    color: '#FFFFFF',
   },
   text2: {
     marginTop: 25,
@@ -89,5 +110,10 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     marginTop: 70,
+  },
+  headerStyle: {
+    height: 90,
+    paddingTop: 45,
+    backgroundColor: '#C6AE8A',
   },
 });

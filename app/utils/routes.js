@@ -9,6 +9,7 @@ const routes = {
   OnboardingNavigator: 'OnboardingNavigator',
   QCListScreen: 'QCListScreen',
   AboutScreen: 'AboutScreen',
+  Favorite: 'FavoriteScreen',
 };
 
 export default routes;

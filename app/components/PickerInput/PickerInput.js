@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   container: {
     width: '90%',
     height: 54,
-    backgroundColor: colors.Nutral5,
+    backgroundColor: '#C6AE8A',
     paddingLeft: 20,
     paddingRight: 20,
     alignItems: 'center',
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     fontFamily: fonts.PoppinsMedium,
-    color: colors.Nurtral40,
+    color: '#FFFFFF',
   },
 });
