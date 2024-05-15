@@ -14,7 +14,7 @@ const StackHeader = ({title}) => {
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.touchButtonStyle}>
-        <FontIcon icon={icons.ChevronLeftIcon} color={colors.White} size={18} />
+        <FontIcon icon={icons.ChevronLeftIcon} color={'#FFFFFF'} size={18} />
       </TouchableOpacity>
       <Text style={styles.titleStyle}>{title}</Text>
     </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontFamily: fonts.ConsolasRegular,
     alignItems: 'center',
-    color: colors.White,
+    color: '#FFFFFF',
   },
   touchButtonStyle: {
     width: 30,

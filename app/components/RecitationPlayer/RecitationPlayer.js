@@ -20,9 +20,11 @@ import {
   getCurrentTrackCover,
   thumbsUpRecitation,
 } from '../../store/actions/recitationsAction/recitationActions';
+import {useIsFocused} from '@react-navigation/native';
 
-const ReacitationPlayer = () => {
+const ReacitationPlayer = ({favoriteSurah}) => {
   const dispatch = useDispatch();
+  // console.log('favorit surah in Player====', favoriteSurah);
 
   const [currentTrack, setCurrentTrack] = useState();
   const [prevTrackIndex, setPrevTrackIndex] = useState();
@@ -36,7 +38,7 @@ const ReacitationPlayer = () => {
   const [currentTrackCover, setCurrentTrackCover] = useState();
 
   const {position, duration} = useProgress();
-
+  const isFocused = useIsFocused();
   // Subscribing to the events
   const events = [
     Event.PlaybackState,
@@ -45,6 +47,9 @@ const ReacitationPlayer = () => {
   ];
 
   useEffect(() => {
+    if (favoriteSurah) {
+      TrackPlayer.destroy();
+    }
     TrackPlayer.setupPlayer();
     TrackPlayer.updateOptions({
       stopWithApp: true,
@@ -59,11 +64,10 @@ const ReacitationPlayer = () => {
     });
     dispatch(getAllRecitations(onRecitationFetched));
     setCurrentTrackCover(dispatch(getCurrentTrackCover()));
-
     return () => {
       TrackPlayer.destroy();
     };
-  }, []);
+  }, [favoriteSurah]);
 
   useEffect(() => {
     if (!isSeeking && position && duration) {
@@ -90,12 +94,32 @@ const ReacitationPlayer = () => {
   });
 
   const onRecitationFetched = tracks => {
-    TrackPlayer.add(tracks).then(() => {
-      TrackPlayer.setRepeatMode(RepeatMode.Off);
-    });
-    setLastIndex(tracks.length - 1);
-    setCurrentTrackIndex(0);
-    setCurrentTrack(tracks[0]);
+    // console.log('fetched track=====', tracks);
+
+    if (favoriteSurah) {
+      const favoriteTrack = tracks.find(
+        track =>
+          track.recitation_id === favoriteSurah.favoriteSurah.recitation_id &&
+          // track.title === favoriteSurah.favoriteSurah.title &&
+          track.url === favoriteSurah.favoriteSurah.mp3,
+      );
+      favoriteTrack.isLiked = true;
+      setCurrentTrack(favoriteTrack);
+      console.log(' fav surah exists===', favoriteTrack);
+      TrackPlayer.add([favoriteTrack, ...tracks]).then(() => {
+        TrackPlayer.setRepeatMode(RepeatMode.Off);
+      });
+      setLastIndex(tracks.length - 1);
+      setCurrentTrackIndex(0);
+    } else {
+      setCurrentTrack(tracks[0]);
+      console.log('no fav surah');
+      TrackPlayer.add(tracks).then(() => {
+        TrackPlayer.setRepeatMode(RepeatMode.Off);
+      });
+      setLastIndex(tracks.length - 1);
+      setCurrentTrackIndex(0);
+    }
   };
 
   const handlePlay = () => {
@@ -139,14 +163,11 @@ const ReacitationPlayer = () => {
     setCurrentTrackCover(dispatch(getCurrentTrackCover()));
     setCurrentTrackIndex(prevTrackIndex);
     const prevTrack = await TrackPlayer.getTrack(prevTrackIndex);
+    console.log('prevTrack====', prevTrack);
     setCurrentTrack(prevTrack);
   };
   const handleThumbsUp = () => {
-    thumbsUpRecitation(
-      currentTrack?.recitation_id,
-      currentTrack.upvote,
-      onSuccess,
-    );
+    thumbsUpRecitation(currentTrack, onSuccess);
   };
 
   const onSuccess = async () => {
@@ -155,22 +176,31 @@ const ReacitationPlayer = () => {
       isLiked: true,
     }).then(async () => {
       const track = await TrackPlayer.getTrack(currentTrackIndex);
+      console.log('track====', track);
+
       setCurrentTrack(track);
     });
   };
 
+  // const getAudioTimeString = seconds => {
+  //   const h = parseInt(seconds / (60 * 60), 10);
+  //   const m = parseInt((seconds % (60 * 60)) / 60, 10);
+  //   const s = parseInt(seconds % 60, 10);
+
+  //   return (
+  //     (h < 10 ? '0' + h : h) +
+  //     ':' +
+  //     (m < 10 ? '0' + m : m) +
+  //     ':' +
+  //     (s < 10 ? '0' + s : s)
+  //   );
+  // };
+  // console.log('Current playing track=======', currentTrack);
   const getAudioTimeString = seconds => {
-    const h = parseInt(seconds / (60 * 60), 10);
     const m = parseInt((seconds % (60 * 60)) / 60, 10);
     const s = parseInt(seconds % 60, 10);
 
-    return (
-      (h < 10 ? '0' + h : h) +
-      ':' +
-      (m < 10 ? '0' + m : m) +
-      ':' +
-      (s < 10 ? '0' + s : s)
-    );
+    return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
   };
 
   const slidingStarted = () => {
@@ -190,6 +220,7 @@ const ReacitationPlayer = () => {
       setPrevTrackIndex(currentTrackIndex);
       setCurrentTrackIndex(shuffledIndex);
       const shuffledTrack = await TrackPlayer.getTrack(shuffledIndex);
+      console.log('shuffledTrack====', shuffledTrack);
       setCurrentTrack(shuffledTrack);
     } catch (err) {
       Alert.alert('Error!!', 'Something went wrong');
@@ -197,8 +228,14 @@ const ReacitationPlayer = () => {
   };
 
   return (
-    <View>
-      <RecitationCover cover={currentTrackCover} />
+    <View
+      style={{
+        flex: 1,
+        // backgroundColor: 'red',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+      }}>
+      {/* <RecitationCover cover={currentTrackCover} /> */}
       <View style={styles.recitationDetail}>
         <Text style={styles.surahNameStyle}>{currentTrack?.title}</Text>
         <Text style={styles.reciterStyle}>{currentTrack?.artist}</Text>
@@ -245,28 +282,32 @@ export default ReacitationPlayer;
 
 const styles = StyleSheet.create({
   reciterStyle: {
-    fontSize: 14,
+    fontSize: 20,
     lineHeight: 30,
     fontWeight: '400',
-    fontFamily: fonts.ConsolasRegular,
-    color: colors.White,
+    fontFamily: fonts.CourierPrimeRegular,
+
+    color: '#FFFFFF',
+
     marginTop: 0,
     textAlign: 'center',
   },
   surahNameStyle: {
-    fontSize: 27,
+    fontSize: 35,
     fontWeight: '400',
-    fontFamily: fonts.ConsolasRegular,
-    color: colors.White,
-    lineHeight: 25,
+    fontFamily: fonts.CourierPrimeRegular,
+
+    color: '#FFFFFF',
+
+    // lineHeight: 25,
     textAlign: 'center',
-    marginTop: 0,
+    // marginTop: 0,
   },
   sliderStyle: {
     width: '90%',
     height: 2,
     alignSelf: 'center',
-    marginTop: 37,
+    marginTop: 300,
   },
   timeContainer: {
     width: '90%',
@@ -281,9 +322,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '400',
     fontFamily: fonts.PoppinsRegular,
-    color: colors.White,
+    color: '#FFFFFF',
   },
   recitationDetail: {
     height: '12.7%',
+    marginTop: 30,
   },
 });

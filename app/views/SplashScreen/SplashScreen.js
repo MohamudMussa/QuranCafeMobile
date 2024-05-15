@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   Image,
+  ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -15,6 +16,8 @@ import {setCityAndCountryFromStorage} from '../../store/actions/settingsAction/s
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 import SplashQuran from '../../assets/images/quran1.png';
+import SplashBack from '../../assets/images/splash-bgc.png';
+
 import SplashStars from '../../assets/images/stars.png';
 import {useIsConnected} from 'react-native-offline';
 
@@ -49,39 +52,28 @@ const SplashScreen = ({setAppReady, setIsOnboarded}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image resizeMode="contain" source={Logo} style={styles.logoStyle} />
-      <Text style={styles.appTitleStyle}>Quran Cafe</Text>
-      <View style={styles.splashBgStyle}>
-        <View>
-          <Image
-            source={SplashQuran}
-            style={styles.splashQuranStyle}
-            resizeMode="contain"
-          />
-          <Image
-            source={SplashStars}
-            style={styles.bottomStarStyle}
-            resizeMode="contain"
+    // <SafeAreaView style={styles.container}>
+    <ImageBackground
+      resizeMode="stretch"
+      source={SplashBack}
+      imageStyle={styles.backgroundImageStyle}
+      style={styles.container}>
+      <SafeAreaView>
+        <View style={styles.splashTextWrapper}>
+          <Text style={styles.splashText}>Ad free Quran.</Text>
+          <Text style={styles.splashText}>Free Forever.</Text>
+        </View>
+        <Text style={styles.appTitleStyle}>Quran Cafe</Text>
+        <View style={{marginTop: 'auto'}}>
+          <ActivityIndicator
+            animating={isConnected}
+            style={styles.loader}
+            size="large"
+            color={colors.White}
           />
         </View>
-      </View>
-      <Image
-        resizeMode="cover"
-        source={SplashStars}
-        style={styles.topStarsStyle}
-      />
-      <ActivityIndicator
-        animating={isConnected}
-        style={styles.loader}
-        size="large"
-        color={colors.White}
-      />
-      <View style={styles.splashTextWrapper}>
-        <Text style={styles.splashText}>Ad free Quran.</Text>
-        <Text style={styles.splashText}>Free Forever.</Text>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -91,6 +83,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.Black,
+  },
+  backgroundImageStyle: {
+    width: '100%',
+    height: '100%',
   },
   imageStyle: {
     width: '100%',
@@ -109,15 +105,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   splashTextWrapper: {
-    position: 'absolute',
-    bottom: 35,
-    left: 15,
+    // position: 'absolute',
+    // bottom: 35,
+    // left: 15,
+    // marginTop: 20,
+    marginLeft: 10,
   },
   splashText: {
-    fontSize: 16,
-    fontWeight: '700',
-    fontFamily: fonts.ConsolasBold,
-    color: colors.White,
+    fontSize: 20,
+    fontWeight: '400',
+    fontFamily: fonts.CourierPrimeRegular,
+
+    color: colors.Black,
     lineHeight: 30,
   },
   splashQuranStyle: {
@@ -148,12 +147,13 @@ const styles = StyleSheet.create({
     right: -80,
   },
   appTitleStyle: {
-    fontSize: 26,
-    color: colors.White,
-    fontWeight: '700',
+    fontSize: 45,
+    color: '#000000',
+    fontWeight: '400',
     textAlign: 'center',
     fontFamily: fonts.ConsolasBold,
-    marginTop: '4%',
+
+    marginTop: 50,
   },
   netInfoContainer: {
     width: '80%',
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   netInfoText: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
     color: '#FF2400',
     fontFamily: fonts.ConsolasBold,
   },

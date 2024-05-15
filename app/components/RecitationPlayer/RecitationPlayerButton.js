@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../../utils/colors';
 import FontIcon from '../general/FontIcon/FontIcon';
 
@@ -10,6 +10,7 @@ const RecitationPlayerButton = ({
   fontType,
   isOnLoop,
   isLiked,
+  iconStyle,
 }) => {
   const getColor = () => {
     if (disable) {
@@ -20,13 +21,9 @@ const RecitationPlayerButton = ({
     }
     return colors.White;
   };
-
   return (
-    <TouchableOpacity
-      style={styles.container(disable)}
-      onPress={onPress}
-      disabled={disable}>
-      <FontIcon icon={icon} size={21} color={getColor()} type={fontType} />
+    <TouchableOpacity onPress={onPress} disabled={disable}>
+      <Image source={icon} style={[iconStyle]} />
     </TouchableOpacity>
   );
 };

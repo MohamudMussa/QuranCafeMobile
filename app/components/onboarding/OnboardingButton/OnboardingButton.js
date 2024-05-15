@@ -22,18 +22,18 @@ export default OnboardingButton;
 
 const styles = StyleSheet.create({
   container: disabled => ({
-    width: 114,
-    height: 54,
+    width: 170,
+    height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: disabled ? colors.LightOrange : colors.Ecstasy,
-    borderRadius: 10,
+    backgroundColor: disabled ? colors.LightOrange : '#333333',
+    borderRadius: 24,
     alignSelf: 'center',
   }),
   buttonText: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
     fontFamily: fonts.ConsolasBold,
-    color: colors.White,
+    color: '#FFFFFF',
   },
 });

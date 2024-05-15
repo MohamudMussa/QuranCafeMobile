@@ -10,11 +10,11 @@ const StackSearchHeader = ({value, onChange, placeholder}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.touchButtonStyle}>
         <FontIcon icon={icons.ChevronLeftIcon} color={colors.White} size={18} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TextInput
         placeholder={placeholder}
         value={value}
